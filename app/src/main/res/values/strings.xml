@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Traffic Light Monitor</string>
+    <string name="radius">Radius</string>
 </resources>
