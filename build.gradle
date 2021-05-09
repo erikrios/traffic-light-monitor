@@ -55,4 +55,8 @@ ext {
     lifecycleRuntimeKtxVersion = '2.3.1'
     legacySupportV4Version = '1.0.0'
     lifecycleLivedataKtxVersion = '2.3.1'
+    espressoIdlingResourceVersion = '3.3.0'
+    retrofitVersion = '2.9.0'
+    converterGsonVersion = '2.9.0'
+    loggingInterceptorVersion = '5.0.0-alpha.2'
 }
