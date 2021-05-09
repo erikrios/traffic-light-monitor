@@ -69,4 +69,8 @@ dependencies {
     // Recycler View
     //noinspection GradleDependency
     implementation "androidx.recyclerview:recyclerview:$recyclerViewVersion"
+
+    // Navigation Components
+    implementation "android.arch.navigation:navigation-fragment-ktx:$navigationFragmentKtxVersion"
+    implementation "android.arch.navigation:navigation-ui-ktx:$navigationUiKtxVersion"
 }
