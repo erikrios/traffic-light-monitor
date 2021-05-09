@@ -100,4 +100,7 @@ dependencies {
 
     // Kenburns View
     implementation "com.flaviofaria:kenburnsview:$kenburnsViewVersion"
+
+    // Circle Image View
+    implementation "de.hdodenhof:circleimageview:$circleImageViewVersion"
 }
