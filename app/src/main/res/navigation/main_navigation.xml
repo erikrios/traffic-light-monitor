@@ -9,12 +9,23 @@
         android:id="@+id/dashboardFragment"
         android:name="com.aliensquad.trafficlightmonitor.ui.view.dashboard.DashboardFragment"
         android:label="fragment_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_dashboard">
+        <action
+            android:id="@+id/action_dashboardFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_aboutFragment"
+            app:destination="@id/aboutFragment" />
+    </fragment>
     <fragment
         android:id="@+id/detailsFragment"
         android:name="com.aliensquad.trafficlightmonitor.ui.view.details.DetailsFragment"
         android:label="fragment_details"
-        tools:layout="@layout/fragment_details" />
+        tools:layout="@layout/fragment_details">
+        <action
+            android:id="@+id/action_detailsFragment_to_aboutFragment"
+            app:destination="@id/aboutFragment" />
+    </fragment>
     <fragment
         android:id="@+id/aboutFragment"
         android:name="com.aliensquad.trafficlightmonitor.ui.view.about.AboutFragment"
