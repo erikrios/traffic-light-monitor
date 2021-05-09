@@ -61,13 +61,7 @@ class DashboardFragment : Fragment() {
                     this@DashboardFragment.adapter.setTrafficLights(generateTrafficLights().shuffled())
                 }
 
-                override fun onNothingSelected(parent: AdapterView<*>?) {
-                    Toast.makeText(
-                        context,
-                        RadiusConfiguration.Radius.KM_3.distance.toString(),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
             }
         }
     }
