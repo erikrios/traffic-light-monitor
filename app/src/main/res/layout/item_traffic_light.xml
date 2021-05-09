@@ -25,7 +25,7 @@
             android:layout_height="70dp"
             android:layout_gravity="center"
             android:contentDescription="@string/app_name"
-            android:src="@drawable/logo" />
+            app:srcCompat="@drawable/logo" />
 
     </androidx.cardview.widget.CardView>
 
@@ -45,16 +45,26 @@
         app:layout_constraintTop_toTopOf="@id/cv_container"
         tools:text="@tools:sample/full_names" />
 
+    <ImageView
+        android:id="@+id/img_location_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:contentDescription="@string/app_name"
+        app:layout_constraintStart_toStartOf="@id/tv_name"
+        app:layout_constraintTop_toBottomOf="@id/tv_name"
+        app:srcCompat="@drawable/ic_baseline_location_on_24" />
+
     <TextView
         android:id="@+id/tv_address"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="4dp"
         android:ellipsize="end"
         android:maxLines="3"
         app:layout_constraintEnd_toEndOf="@id/tv_name"
-        app:layout_constraintStart_toStartOf="@id/tv_name"
-        app:layout_constraintTop_toBottomOf="@id/tv_name"
+        app:layout_constraintStart_toEndOf="@id/img_location_icon"
+        app:layout_constraintTop_toTopOf="@id/img_location_icon"
         tools:text="@tools:sample/lorem/random" />
 
     <View
