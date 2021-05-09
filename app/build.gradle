@@ -42,6 +42,10 @@ android {
     }
 }
 
+kapt {
+    correctErrorTypes true
+}
+
 dependencies {
 
     //noinspection DifferentStdlibGradleVersion
