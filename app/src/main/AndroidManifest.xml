@@ -15,7 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TrafficLightMonitor"
         tools:ignore="AllowBackup">
-        <activity android:name=".ui.view.MainActivity">
+        <activity
+            android:name=".ui.view.MainActivity"
+            android:theme="@style/SplashScreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
