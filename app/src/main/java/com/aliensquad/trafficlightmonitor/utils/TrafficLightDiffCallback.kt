@@ -3,11 +3,18 @@ package com.aliensquad.trafficlightmonitor.utils
 import androidx.recyclerview.widget.DiffUtil
 import com.aliensquad.trafficlightmonitor.data.model.TrafficLight
 
-class TrafficLightDiffCallback : DiffUtil.ItemCallback<TrafficLight>() {
+class TrafficLightDiffCallback(
+    private val oldTrafficLights: List<TrafficLight>,
+    private val newTrafficLights: List<TrafficLight>
+) : DiffUtil.Callback() {
 
-    override fun areItemsTheSame(oldItem: TrafficLight, newItem: TrafficLight): Boolean =
-        oldItem.id == newItem.id
+    override fun getOldListSize(): Int = oldTrafficLights.size
 
-    override fun areContentsTheSame(oldItem: TrafficLight, newItem: TrafficLight): Boolean =
-        oldItem == newItem
+    override fun getNewListSize(): Int = newTrafficLights.size
+
+    override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
+        oldTrafficLights[oldItemPosition].id == newTrafficLights[newItemPosition].id
+
+    override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
+        oldTrafficLights[oldItemPosition] == newTrafficLights[newItemPosition]
 }
