@@ -97,4 +97,7 @@ dependencies {
     // Glide
     implementation "com.github.bumptech.glide:glide:$glideVersion"
     kapt "com.github.bumptech.glide:compiler:$glideCompilerVersion"
+
+    // Kenburns View
+    implementation "com.flaviofaria:kenburnsview:$kenburnsViewVersion"
 }
