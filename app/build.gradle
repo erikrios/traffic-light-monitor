@@ -117,4 +117,7 @@ dependencies {
     // For local unit tests (Dagger Hilt)
     testImplementation "com.google.dagger:hilt-android-testing:$hiltAndroidTestingVersion"
     kaptTest "com.google.dagger:hilt-compiler:$hiltCompilerVersion"
+
+    // Lottie
+    implementation "com.airbnb.android:lottie:$lottieVersion"
 }
