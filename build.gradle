@@ -33,5 +33,5 @@ ext {
     appCompatVersion = '1.2.0'
     materialVersion = '1.3.0'
     cnstraintLayoutVersion = '2.0.4'
-    fragmentKtxVersion = '1.3.2'
+    fragmentKtxVersion = '1.3.3'
 }
