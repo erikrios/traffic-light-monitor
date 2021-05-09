@@ -45,4 +45,7 @@ ext {
     espressoContribVersion = '3.3.0'
     coreTestingVersion = '2.1.0'
     kotlinxCoroutinesTestVersion = '1.4.1'
+    mockitoCoreVersion = '3.8.0'
+    mockitoInlineVersion = '3.8.0'
+    mockitoKotlinVersion = '3.1.0'
 }
