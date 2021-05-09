@@ -103,4 +103,10 @@ dependencies {
 
     // Circle Image View
     implementation "de.hdodenhof:circleimageview:$circleImageViewVersion"
+
+    // Dagger Hilt
+    implementation "com.google.dagger:hilt-android:$hiltAndroidVersion"
+    kapt "com.google.dagger:hilt-compiler:$hiltCompilerVersion"
+    kapt "com.google.dagger:hilt-android-compiler:$hiltAndroidCompilerVersion"
+    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hiltLifecycleViewmodelVersion"
 }
