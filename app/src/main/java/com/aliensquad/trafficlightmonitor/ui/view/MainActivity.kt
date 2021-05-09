@@ -3,10 +3,16 @@ package com.aliensquad.trafficlightmonitor.ui.view
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.aliensquad.trafficlightmonitor.R
+import com.aliensquad.trafficlightmonitor.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setTheme(R.style.Theme_TrafficLightMonitor_NoActionBar)
+        setContentView(binding.root)
     }
 }
