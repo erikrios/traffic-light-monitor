@@ -109,4 +109,12 @@ dependencies {
     kapt "com.google.dagger:hilt-compiler:$hiltCompilerVersion"
     kapt "com.google.dagger:hilt-android-compiler:$hiltAndroidCompilerVersion"
     implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hiltLifecycleViewmodelVersion"
+
+    // For instrumentation tests (Dagger Hilt)
+    androidTestImplementation "com.google.dagger:hilt-android-testing:$hiltAndroidTestingVersion"
+    kaptAndroidTest "com.google.dagger:hilt-compiler:$hiltCompilerVersion"
+
+    // For local unit tests (Dagger Hilt)
+    testImplementation "com.google.dagger:hilt-android-testing:$hiltAndroidTestingVersion"
+    kaptTest "com.google.dagger:hilt-compiler:$hiltCompilerVersion"
 }
