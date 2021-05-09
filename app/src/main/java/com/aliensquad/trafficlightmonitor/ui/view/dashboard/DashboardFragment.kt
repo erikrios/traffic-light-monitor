@@ -67,7 +67,6 @@ class DashboardFragment : Fragment() {
                         RadiusConfiguration.Radius.KM_3.distance.toString(),
                         Toast.LENGTH_SHORT
                     ).show()
-                    this@DashboardFragment.adapter.setTrafficLights(generateTrafficLights())
                 }
             }
         }
