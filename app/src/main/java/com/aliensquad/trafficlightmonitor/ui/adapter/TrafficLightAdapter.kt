@@ -40,6 +40,7 @@ class TrafficLightAdapter(private val onClickListener: ((TrafficLight) -> Unit))
                 tvName.text = trafficLight.name
                 tvAddress.text = trafficLight.address
             }
+            itemView.setOnClickListener { clickListener(trafficLight) }
         }
     }
 }
