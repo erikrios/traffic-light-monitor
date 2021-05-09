@@ -10,6 +10,7 @@
         android:id="@+id/toolbar"
         android:layout_width="0dp"
         android:layout_height="?attr/actionBarSize"
+        android:background="@color/purple_dark_500"
         android:elevation="5dp"
         android:theme="@style/Theme.TrafficLightMonitor.Toolbar"
         app:layout_constraintEnd_toEndOf="parent"
