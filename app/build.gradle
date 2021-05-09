@@ -82,4 +82,9 @@ dependencies {
 
     // Espresso Idling Resource
     implementation "androidx.test.espresso:espresso-idling-resource:$espressoIdlingResourceVersion"
+
+    // Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$converterGsonVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$loggingInterceptorVersion"
 }
