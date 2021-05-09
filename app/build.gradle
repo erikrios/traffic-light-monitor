@@ -44,7 +44,16 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:$cnstraintLayoutVersion"
     implementation "androidx.fragment:fragment-ktx:$fragmentKtxVersion"
 
-    testImplementation 'junit:junit:4.+'
+    // Local Unit Tests
+    implementation "androidx.test:core:$testCoreVersion"
+    testImplementation "junit:junit:$jUnitVersion"
+    testImplementation "org.mockito:mockito-core:$mockitoCoreVersion"
+    testImplementation "org.mockito:mockito-inline:$mockitoInlineVersion"
+    testImplementation "org.mockito.kotlin:mockito-kotlin:$mockitoKotlinVersion"
+    testImplementation "androidx.arch.core:core-testing:$coreTestingVersion"
+    testImplementation "com.google.truth:truth:$truthVersion"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesTestVersion"
+
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 }
