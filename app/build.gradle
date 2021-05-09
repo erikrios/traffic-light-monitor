@@ -65,4 +65,8 @@ dependencies {
         // conflicts with mockito due to direct inclusion of byte buddy
         exclude group: "org.jetbrains.kotlinx", module: "kotlinx-coroutines-debug"
     }
+
+    // Recycler View
+    //noinspection GradleDependency
+    implementation "androidx.recyclerview:recyclerview:$recyclerViewVersion"
 }
