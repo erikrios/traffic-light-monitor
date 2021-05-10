@@ -17,5 +17,13 @@ object ImageConfiguration {
         TRAFFIC_LIGHT_10(R.drawable.traffic_light_10)
     }
 
+    enum class TrafficLightStatus(val resource: Int) {
+        YELLOW(R.drawable.bg_traffic_light_yellow),
+        RED(R.drawable.bg_traffic_light_red),
+        GREEN(R.drawable.bg_traffic_light_green),
+    }
+
     fun getRandomTrafficLightWallpaperResource() = TrafficLightWallpaper.values().random().resource
+
+    fun getTrafficLightStatusResource(status: TrafficLightStatus): Int = status.resource
 }
