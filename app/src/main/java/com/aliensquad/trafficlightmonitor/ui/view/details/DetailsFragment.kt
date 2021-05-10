@@ -66,10 +66,20 @@ class DetailsFragment : Fragment() {
             navigationIcon =
                 ContextCompat.getDrawable(context, R.drawable.ic_baseline_arrow_back_24)
             setNavigationOnClickListener { findNavController().popBackStack() }
+            val menuItem = menu.findItem(R.id.item_about_apps)
+            menuItem.setOnMenuItemClickListener {
+                navigateToAboutFragment()
+                return@setOnMenuItemClickListener true
+            }
         }
     }
 
     private fun handleRecyclerView() {
         binding?.rvRecyclerViewIntersections?.adapter = adapter
+    }
+
+    private fun navigateToAboutFragment() {
+        val action = DetailsFragmentDirections.actionDetailsFragmentToAboutFragment()
+        findNavController().navigate(action)
     }
 }

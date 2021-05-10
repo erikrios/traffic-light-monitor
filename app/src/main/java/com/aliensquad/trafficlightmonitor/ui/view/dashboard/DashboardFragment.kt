@@ -73,18 +73,22 @@ class DashboardFragment : Fragment() {
         }
     }
 
+    private fun handleToolbar() {
+        val menuItem = binding?.toolbar?.menu?.findItem(R.id.item_about_apps)
+        menuItem?.setOnMenuItemClickListener {
+            navigateToAboutFragment()
+            return@setOnMenuItemClickListener true
+        }
+    }
+
     private fun navigateToDetailsFragment(trafficLight: TrafficLight) {
         val action =
             DashboardFragmentDirections.actionDashboardFragmentToDetailsFragment(trafficLight)
         findNavController().navigate(action)
     }
 
-    private fun handleToolbar() {
-        val menuItem = binding?.toolbar?.menu?.findItem(R.id.item_about_apps)
-        menuItem?.setOnMenuItemClickListener {
-            val action = DashboardFragmentDirections.actionDashboardFragmentToAboutFragment()
-            findNavController().navigate(action)
-            return@setOnMenuItemClickListener true
-        }
+    private fun navigateToAboutFragment() {
+        val action = DashboardFragmentDirections.actionDashboardFragmentToAboutFragment()
+        findNavController().navigate(action)
     }
 }
