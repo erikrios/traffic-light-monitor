@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.aliensquad.trafficlightmonitor.R
@@ -14,7 +13,6 @@ import com.aliensquad.trafficlightmonitor.data.model.TrafficLight
 import com.aliensquad.trafficlightmonitor.databinding.FragmentDashboardBinding
 import com.aliensquad.trafficlightmonitor.ui.adapter.TrafficLightAdapter
 import com.aliensquad.trafficlightmonitor.utils.DummyData.generateTrafficLights
-import com.aliensquad.trafficlightmonitor.utils.RadiusConfiguration
 import com.aliensquad.trafficlightmonitor.utils.RadiusConfiguration.generateRadiusValues
 
 class DashboardFragment : Fragment() {
@@ -63,8 +61,6 @@ class DashboardFragment : Fragment() {
                     position: Int,
                     id: Long
                 ) {
-                    val radius = RadiusConfiguration.getRadiusFromIndex(position)
-                    Toast.makeText(context, radius.distance.toString(), Toast.LENGTH_SHORT).show()
                     this@DashboardFragment.adapter.setTrafficLights(generateTrafficLights().shuffled())
                 }
 
