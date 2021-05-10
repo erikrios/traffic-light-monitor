@@ -8,4 +8,5 @@
     <string name="vehicles_per_minutes">%1$d vehicles/minutes</string>
     <string name="intersections">Intersections</string>
     <string name="intersection_info">%1$s (%2$d seconds of waiting time)</string>
+    <string name="about_apps">About Apps</string>
 </resources>

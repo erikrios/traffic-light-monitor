@@ -9,4 +9,5 @@
     <string name="vehicles_per_minutes">%1$d kendaraan/menit</string>
     <string name="intersections">Intersections</string>
     <string name="intersection_info">%1$s (%2$d detik waktu tunggu)</string>
+    <string name="about_apps">Tentang Aplikasi</string>
 </resources>
