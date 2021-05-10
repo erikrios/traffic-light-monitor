@@ -26,4 +26,6 @@ object DummyData {
 
         return trafficLights
     }
+
+    fun getTrafficLight(id: Long) = generateTrafficLights().find { it.id == id }
 }
