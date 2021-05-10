@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_detailsFragment_to_aboutFragment"
             app:destination="@id/aboutFragment" />
+        <argument
+            android:name="trafficLight"
+            app:argType="com.aliensquad.trafficlightmonitor.data.model.TrafficLight" />
     </fragment>
     <fragment
         android:id="@+id/aboutFragment"
