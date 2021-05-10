@@ -21,7 +21,7 @@ class DetailsFragment : Fragment() {
     private var _binding: FragmentDetailsBinding? = null
     private val binding get() = _binding
     private val args: DetailsFragmentArgs by navArgs()
-    private val trafficLight = getTrafficLight(args.trafficLight.id)
+    private var trafficLight: TrafficLight? = null
     private val adapter = IntersectionAdapter()
 
     override fun onCreateView(
@@ -35,6 +35,7 @@ class DetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         handleToolbar(args.trafficLight.name)
+        trafficLight = getTrafficLight(args.trafficLight.id)
         trafficLight?.let { handleView(it) }
         adapter.setTrafficLights(trafficLight?.intersections ?: listOf())
     }
