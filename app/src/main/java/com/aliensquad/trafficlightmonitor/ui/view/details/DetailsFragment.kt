@@ -11,6 +11,7 @@ import androidx.navigation.fragment.navArgs
 import com.aliensquad.trafficlightmonitor.R
 import com.aliensquad.trafficlightmonitor.data.model.TrafficLight
 import com.aliensquad.trafficlightmonitor.databinding.FragmentDetailsBinding
+import com.aliensquad.trafficlightmonitor.ui.adapter.IntersectionAdapter
 import com.aliensquad.trafficlightmonitor.utils.DummyData.getTrafficLight
 
 class DetailsFragment : Fragment() {
@@ -19,6 +20,7 @@ class DetailsFragment : Fragment() {
     private val binding get() = _binding
     private val args: DetailsFragmentArgs by navArgs()
     private val trafficLight = getTrafficLight(args.trafficLight.id)
+    private val adapter = IntersectionAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,6 +34,7 @@ class DetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         handleToolbar(args.trafficLight.name)
         trafficLight?.let { handleView(it) }
+        adapter.setTrafficLights(trafficLight?.intersections ?: listOf())
     }
 
     override fun onDestroyView() {
@@ -46,6 +49,7 @@ class DetailsFragment : Fragment() {
             tvVehicleDensityInMinutes.text =
                 getString(R.string.vehicles_per_minutes, trafficLight.vehiclesDensityInMinutes)
         }
+        handleRecyclerView()
     }
 
     private fun handleToolbar(title: String) {
@@ -55,5 +59,9 @@ class DetailsFragment : Fragment() {
                 ContextCompat.getDrawable(context, R.drawable.ic_baseline_arrow_back_24)
             setNavigationOnClickListener { findNavController().popBackStack() }
         }
+    }
+
+    private fun handleRecyclerView() {
+        binding?.rvRecyclerViewIntersections?.adapter = adapter
     }
 }
