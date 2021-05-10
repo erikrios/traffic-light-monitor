@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Traffic Light Monitor</string>
+    <string name="app_description">Aplikasi yang digunakan untuk memonitor lampu lalu lintas.</string>
+    <string name="version">Versi 1.0</string>
+    <string name="developed_by">Dikembangkan oleh\nAlien Squad</string>
     <string name="radius">Radius</string>
     <string name="info">Info</string>
     <string name="vehicles_per_minutes">%1$d kendaraan/menit</string>
