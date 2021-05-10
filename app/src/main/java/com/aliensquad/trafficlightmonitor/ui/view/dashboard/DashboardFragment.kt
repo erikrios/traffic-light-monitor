@@ -8,6 +8,8 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.aliensquad.trafficlightmonitor.data.model.TrafficLight
 import com.aliensquad.trafficlightmonitor.databinding.FragmentDashboardBinding
 import com.aliensquad.trafficlightmonitor.ui.adapter.TrafficLightAdapter
 import com.aliensquad.trafficlightmonitor.utils.DummyData.generateTrafficLights
@@ -18,9 +20,7 @@ class DashboardFragment : Fragment() {
 
     private var _binding: FragmentDashboardBinding? = null
     private val binding get() = _binding
-    private val adapter = TrafficLightAdapter {
-        Toast.makeText(context, it.name, Toast.LENGTH_SHORT).show()
-    }
+    private val adapter = TrafficLightAdapter { navigateToDetailsFragment(it) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -64,6 +64,12 @@ class DashboardFragment : Fragment() {
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
             }
         }
+    }
+
+    private fun navigateToDetailsFragment(trafficLight: TrafficLight) {
+        val action =
+            DashboardFragmentDirections.actionDashboardFragmentToDetailsFragment(trafficLight)
+        findNavController().navigate(action)
     }
 
     override fun onDestroyView() {
