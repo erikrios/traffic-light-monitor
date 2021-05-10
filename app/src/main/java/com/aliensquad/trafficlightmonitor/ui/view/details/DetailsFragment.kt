@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.aliensquad.trafficlightmonitor.R
+import com.aliensquad.trafficlightmonitor.data.model.TrafficLight
 import com.aliensquad.trafficlightmonitor.databinding.FragmentDetailsBinding
 import com.aliensquad.trafficlightmonitor.utils.DummyData.getTrafficLight
 
@@ -30,11 +31,21 @@ class DetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         handleToolbar(args.trafficLight.name)
+        trafficLight?.let { handleView(it) }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun handleView(trafficLight: TrafficLight) {
+        binding?.apply {
+            tvName.text = trafficLight.name
+            tvAddress.text = trafficLight.address
+            tvVehicleDensityInMinutes.text =
+                getString(R.string.vehicles_per_minutes, trafficLight.vehiclesDensityInMinutes)
+        }
     }
 
     private fun handleToolbar(title: String) {
