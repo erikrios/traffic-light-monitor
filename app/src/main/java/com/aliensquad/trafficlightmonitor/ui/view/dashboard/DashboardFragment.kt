@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.aliensquad.trafficlightmonitor.R
 import com.aliensquad.trafficlightmonitor.data.model.TrafficLight
 import com.aliensquad.trafficlightmonitor.databinding.FragmentDashboardBinding
 import com.aliensquad.trafficlightmonitor.ui.adapter.TrafficLightAdapter
@@ -32,8 +33,14 @@ class DashboardFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        handleToolbar()
         handleRecyclerView()
         handleSpinner()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     private fun handleRecyclerView() {
@@ -72,8 +79,12 @@ class DashboardFragment : Fragment() {
         findNavController().navigate(action)
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    private fun handleToolbar() {
+        val menuItem = binding?.toolbar?.menu?.findItem(R.id.item_about_apps)
+        menuItem?.setOnMenuItemClickListener {
+            val action = DashboardFragmentDirections.actionDashboardFragmentToAboutFragment()
+            findNavController().navigate(action)
+            return@setOnMenuItemClickListener true
+        }
     }
 }
