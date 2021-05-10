@@ -13,6 +13,8 @@ import com.aliensquad.trafficlightmonitor.data.model.TrafficLight
 import com.aliensquad.trafficlightmonitor.databinding.FragmentDetailsBinding
 import com.aliensquad.trafficlightmonitor.ui.adapter.IntersectionAdapter
 import com.aliensquad.trafficlightmonitor.utils.DummyData.getTrafficLight
+import com.aliensquad.trafficlightmonitor.utils.ImageConfiguration.getRandomTrafficLightWallpaperResource
+import com.bumptech.glide.Glide
 
 class DetailsFragment : Fragment() {
 
@@ -43,7 +45,12 @@ class DetailsFragment : Fragment() {
     }
 
     private fun handleView(trafficLight: TrafficLight) {
+        val trafficLightImageResource = getRandomTrafficLightWallpaperResource()
+
         binding?.apply {
+            Glide.with(requireContext())
+                .load(trafficLightImageResource)
+                .into(imgTrafficLight)
             tvName.text = trafficLight.name
             tvAddress.text = trafficLight.address
             tvVehicleDensityInMinutes.text =
