@@ -5,4 +5,5 @@
     <string name="info">Info</string>
     <string name="vehicles_per_minutes">%1$d kendaraan/menit</string>
     <string name="intersections">Intersections</string>
+    <string name="waiting_time">%1$s (%2$d detik waktu tunggu)</string>
 </resources>
