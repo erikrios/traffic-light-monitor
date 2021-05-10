@@ -3,4 +3,6 @@
     <string name="app_name">Traffic Light Monitor</string>
     <string name="radius">Radius</string>
     <string name="info">Info</string>
+    <string name="vehicles_per_minutes">%1$d kendaraan/menit</string>
+    <string name="intersections">Intersections</string>
 </resources>
