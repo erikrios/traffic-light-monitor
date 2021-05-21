@@ -4,7 +4,6 @@ plugins {
     id 'kotlin-parcelize'
     id 'androidx.navigation.safeargs.kotlin'
     id 'kotlin-kapt'
-    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -114,19 +113,10 @@ dependencies {
     // Circle Image View
     implementation "de.hdodenhof:circleimageview:$circleImageViewVersion"
 
-    // Dagger Hilt
-    implementation "com.google.dagger:hilt-android:$hiltAndroidVersion"
-    kapt "com.google.dagger:hilt-compiler:$hiltCompilerVersion"
-    kapt "com.google.dagger:hilt-android-compiler:$hiltAndroidCompilerVersion"
-    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hiltLifecycleViewmodelVersion"
-
-    // For instrumentation tests (Dagger Hilt)
-    androidTestImplementation "com.google.dagger:hilt-android-testing:$hiltAndroidTestingVersion"
-    kaptAndroidTest "com.google.dagger:hilt-compiler:$hiltCompilerVersion"
-
-    // For local unit tests (Dagger Hilt)
-    testImplementation "com.google.dagger:hilt-android-testing:$hiltAndroidTestingVersion"
-    kaptTest "com.google.dagger:hilt-compiler:$hiltCompilerVersion"
+    // Koin
+    implementation "org.koin:koin-core:$koinVersion"
+    implementation "org.koin:koin-android:$koinVersion"
+    implementation "org.koin:koin-android-viewmodel:$koinVersion"
 
     // Lottie
     implementation "com.airbnb.android:lottie:$lottieVersion"

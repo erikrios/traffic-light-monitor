@@ -1,7 +1,27 @@
 package com.aliensquad.trafficlightmonitor
 
 import android.app.Application
-import dagger.hilt.android.HiltAndroidApp
+import com.aliensquad.trafficlightmonitor.di.repositoryModule
+import com.aliensquad.trafficlightmonitor.di.viewModelModule
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.context.startKoin
+import org.koin.core.logger.Level
 
-@HiltAndroidApp
-class TrafficLightMonitorApplication : Application()
+
+class TrafficLightMonitorApplication : Application() {
+
+    override fun onCreate() {
+        super.onCreate()
+        startKoin {
+            androidLogger(Level.NONE)
+            androidContext(this@TrafficLightMonitorApplication)
+            modules(
+                listOf(
+                    repositoryModule,
+                    viewModelModule
+                )
+            )
+        }
+    }
+}

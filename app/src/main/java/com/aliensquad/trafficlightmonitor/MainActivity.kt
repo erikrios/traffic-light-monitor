@@ -1,8 +1,7 @@
-package com.aliensquad.trafficlightmonitor.ui.view
+package com.aliensquad.trafficlightmonitor
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.aliensquad.trafficlightmonitor.R
 import com.aliensquad.trafficlightmonitor.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
