@@ -16,6 +16,7 @@ class DashboardViewModel(private val trafficLightRepository: TrafficLightReposit
     private val _trafficLightsState = MutableLiveData<Resource<List<TrafficLight>>>().apply {
         value = Resource.loading(null)
     }
+
     val trafficLightsState: LiveData<Resource<List<TrafficLight>>> get() = _trafficLightsState
 
     private fun getTrafficLights(radius: RadiusConfiguration.Radius): Job {
