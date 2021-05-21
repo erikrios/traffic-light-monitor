@@ -1,6 +1,8 @@
 package com.aliensquad.trafficlightmonitor
 
 import android.app.Application
+import com.aliensquad.trafficlightmonitor.di.repositoryModule
+import com.aliensquad.trafficlightmonitor.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -16,7 +18,8 @@ class TrafficLightMonitorApplication : Application() {
             androidContext(this@TrafficLightMonitorApplication)
             modules(
                 listOf(
-
+                    repositoryModule,
+                    viewModelModule
                 )
             )
         }
