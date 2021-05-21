@@ -8,12 +8,8 @@ import android.net.ConnectivityManager.TYPE_WIFI
 import android.net.NetworkCapabilities.*
 import android.os.Build
 import android.provider.ContactsContract.CommonDataKinds.Email.TYPE_MOBILE
-import dagger.hilt.android.qualifiers.ApplicationContext
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class NetworkHelper @Inject constructor(@ApplicationContext private val context: Context) {
+class NetworkHelper(private val context: Context) {
 
     fun isNetworkConnected(): Boolean {
         var result = false
