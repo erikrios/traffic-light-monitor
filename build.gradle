@@ -30,7 +30,7 @@ task clean(type: Delete) {
 
 ext {
     coreKtxVersion = '1.5.0'
-    appCompatVersion = '1.2.0'
+    appCompatVersion = '1.3.0'
     materialVersion = '1.3.0'
     cnstraintLayoutVersion = '2.0.4'
     fragmentKtxVersion = '1.3.3'
