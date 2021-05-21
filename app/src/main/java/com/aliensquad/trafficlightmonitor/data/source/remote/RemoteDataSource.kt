@@ -10,7 +10,7 @@ import com.aliensquad.trafficlightmonitor.utils.Resource
 class RemoteDataSource : DataSource {
 
     override suspend fun getTrafficLights(radius: RadiusConfiguration.Radius): Resource<List<TrafficLight>> {
-        val trafficLights = generateTrafficLights()
+        val trafficLights = generateTrafficLights().shuffled()
         return Resource.success(trafficLights)
     }
 

@@ -12,14 +12,17 @@ import com.aliensquad.trafficlightmonitor.R
 import com.aliensquad.trafficlightmonitor.data.model.TrafficLight
 import com.aliensquad.trafficlightmonitor.databinding.FragmentDashboardBinding
 import com.aliensquad.trafficlightmonitor.ui.adapter.TrafficLightAdapter
+import com.aliensquad.trafficlightmonitor.ui.viewmodel.DashboardViewModel
 import com.aliensquad.trafficlightmonitor.utils.DummyData.generateTrafficLights
 import com.aliensquad.trafficlightmonitor.utils.RadiusConfiguration.generateRadiusValues
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class DashboardFragment : Fragment() {
 
     private var _binding: FragmentDashboardBinding? = null
     private val binding get() = _binding
     private val adapter = TrafficLightAdapter { navigateToDetailsFragment(it) }
+    private val viewModel: DashboardViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
