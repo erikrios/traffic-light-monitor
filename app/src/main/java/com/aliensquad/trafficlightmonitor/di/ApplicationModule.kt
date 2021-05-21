@@ -1,21 +1,24 @@
 package com.aliensquad.trafficlightmonitor.di
 
-import com.aliensquad.trafficlightmonitor.data.source.DataSource
+import com.aliensquad.trafficlightmonitor.data.repository.TrafficLightRepository
+import com.aliensquad.trafficlightmonitor.data.repository.TrafficLightRepositoryImpl
 import com.aliensquad.trafficlightmonitor.data.source.local.LocalDataSource
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Named
-import javax.inject.Singleton
+import com.aliensquad.trafficlightmonitor.data.source.remote.RemoteDataSource
+import com.aliensquad.trafficlightmonitor.ui.viewmodel.DashboardViewModel
+import com.aliensquad.trafficlightmonitor.ui.viewmodel.DetailsViewModel
+import com.aliensquad.trafficlightmonitor.utils.NetworkHelper
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.viewmodel.dsl.viewModel
+import org.koin.dsl.module
 
-@Module
-@InstallIn(SingletonComponent::class)
-object ApplicationModule {
+val repositoryModule = module {
+    single { LocalDataSource() }
+    single { RemoteDataSource() }
+    factory { NetworkHelper(androidContext()) }
+    single<TrafficLightRepository> { TrafficLightRepositoryImpl(get(), get(), get()) }
+}
 
-    @Provides
-    @Singleton
-    @Named("localDataSource")
-    fun provideLocalDataSource(localDataSource: LocalDataSource): DataSource =
-        localDataSource
+val viewModelModule = module {
+    viewModel { DashboardViewModel(get()) }
+    viewModel { DetailsViewModel(get()) }
 }
