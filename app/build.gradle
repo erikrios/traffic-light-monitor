@@ -113,6 +113,11 @@ dependencies {
     // Circle Image View
     implementation "de.hdodenhof:circleimageview:$circleImageViewVersion"
 
+    // Koin
+    implementation "org.koin:koin-core:$koinVersion"
+    implementation "org.koin:koin-android:$koinVersion"
+    implementation "org.koin:koin-android-viewmodel:$koinVersion"
+
     // Lottie
     implementation "com.airbnb.android:lottie:$lottieVersion"
 }
