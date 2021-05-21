@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -12,17 +13,20 @@ import com.aliensquad.trafficlightmonitor.R
 import com.aliensquad.trafficlightmonitor.data.model.TrafficLight
 import com.aliensquad.trafficlightmonitor.databinding.FragmentDetailsBinding
 import com.aliensquad.trafficlightmonitor.ui.adapter.IntersectionAdapter
-import com.aliensquad.trafficlightmonitor.utils.DummyData.getTrafficLight
+import com.aliensquad.trafficlightmonitor.ui.viewmodel.DetailsViewModel
 import com.aliensquad.trafficlightmonitor.utils.ImageConfiguration.getRandomTrafficLightWallpaperResource
+import com.aliensquad.trafficlightmonitor.utils.Resource
+import com.aliensquad.trafficlightmonitor.utils.Status
 import com.bumptech.glide.Glide
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class DetailsFragment : Fragment() {
 
     private var _binding: FragmentDetailsBinding? = null
     private val binding get() = _binding
     private val args: DetailsFragmentArgs by navArgs()
-    private var trafficLight: TrafficLight? = null
     private val adapter = IntersectionAdapter()
+    private val viewModel: DetailsViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,9 +39,15 @@ class DetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         handleToolbar(args.trafficLight.name)
-        trafficLight = getTrafficLight(args.trafficLight.id)
-        trafficLight?.let { handleView(it) }
-        adapter.setTrafficLights(trafficLight?.intersections ?: listOf())
+        adapter.setTrafficLights(listOf())
+        handleRecyclerView()
+        val trafficLightImageResource = getRandomTrafficLightWallpaperResource()
+        loadTrafficLightImage(trafficLightImageResource)
+        viewModel.apply {
+            getTrafficLight(args.trafficLight.id)
+            trafficLightState.observe(viewLifecycleOwner, this@DetailsFragment::handleState)
+        }
+
     }
 
     override fun onDestroyView() {
@@ -45,19 +55,45 @@ class DetailsFragment : Fragment() {
         _binding = null
     }
 
-    private fun handleView(trafficLight: TrafficLight) {
-        val trafficLightImageResource = getRandomTrafficLightWallpaperResource()
-
-        binding?.apply {
-            Glide.with(requireContext())
-                .load(trafficLightImageResource)
-                .into(imgTrafficLight)
-            tvName.text = trafficLight.name
-            tvAddress.text = trafficLight.address
-            tvVehicleDensityInMinutes.text =
-                getString(R.string.vehicles_per_minutes, trafficLight.vehiclesDensityInMinutes)
+    private fun handleState(resource: Resource<TrafficLight>) {
+        when (resource.status) {
+            Status.LOADING -> handleLoadingState()
+            Status.ERROR -> handleErrorState(resource.message)
+            Status.SUCCESS -> handleSuccessState(resource.data)
         }
-        handleRecyclerView()
+    }
+
+    private fun handleLoadingState() {
+        binding?.apply {
+            tvName.text = args.trafficLight.name
+            tvAddress.text = args.trafficLight.address
+            tvVehicleDensityInMinutes.text =
+                getString(R.string.vehicles_per_minutes, 0)
+        }
+    }
+
+    private fun handleErrorState(message: String?) {
+        binding?.apply {
+            tvName.text = args.trafficLight.name
+            tvAddress.text = args.trafficLight.address
+            tvVehicleDensityInMinutes.text =
+                getString(R.string.vehicles_per_minutes, 0)
+        }
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun handleSuccessState(trafficLight: TrafficLight?) {
+        handleView(trafficLight)
+    }
+
+    private fun handleView(trafficLight: TrafficLight?) {
+        binding?.apply {
+            tvName.text = trafficLight?.name
+            tvAddress.text = trafficLight?.address
+            tvVehicleDensityInMinutes.text =
+                getString(R.string.vehicles_per_minutes, trafficLight?.vehiclesDensityInMinutes)
+        }
+        adapter.setTrafficLights(trafficLight?.intersections ?: listOf())
     }
 
     private fun handleToolbar(title: String) {
@@ -76,6 +112,14 @@ class DetailsFragment : Fragment() {
 
     private fun handleRecyclerView() {
         binding?.rvRecyclerViewIntersections?.adapter = adapter
+    }
+
+    private fun loadTrafficLightImage(resource: Int) {
+        binding?.imgTrafficLight?.let {
+            Glide.with(requireContext())
+                .load(resource)
+                .into(it)
+        }
     }
 
     private fun navigateToAboutFragment() {
