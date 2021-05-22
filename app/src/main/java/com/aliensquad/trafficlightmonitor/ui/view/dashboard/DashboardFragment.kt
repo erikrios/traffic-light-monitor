@@ -14,8 +14,8 @@ import com.aliensquad.trafficlightmonitor.data.model.TrafficLight
 import com.aliensquad.trafficlightmonitor.databinding.FragmentDashboardBinding
 import com.aliensquad.trafficlightmonitor.ui.adapter.TrafficLightAdapter
 import com.aliensquad.trafficlightmonitor.ui.viewmodel.DashboardViewModel
-import com.aliensquad.trafficlightmonitor.utils.RadiusConfiguration
 import com.aliensquad.trafficlightmonitor.utils.RadiusConfiguration.generateRadiusValues
+import com.aliensquad.trafficlightmonitor.utils.RadiusConfiguration.getRadiusFromIndex
 import com.aliensquad.trafficlightmonitor.utils.Resource
 import com.aliensquad.trafficlightmonitor.utils.Status
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -95,15 +95,8 @@ class DashboardFragment : Fragment() {
                     position: Int,
                     id: Long
                 ) {
-                    when (position) {
-                        0 -> viewModel.getTrafficLights(RadiusConfiguration.Radius.KM_3)
-                        1 -> viewModel.getTrafficLights(RadiusConfiguration.Radius.KM_5)
-                        2 -> viewModel.getTrafficLights(RadiusConfiguration.Radius.KM_7)
-                        3 -> viewModel.getTrafficLights(RadiusConfiguration.Radius.KM_9)
-                        4 -> viewModel.getTrafficLights(RadiusConfiguration.Radius.KM_11)
-                        5 -> viewModel.getTrafficLights(RadiusConfiguration.Radius.KM_13)
-                        6 -> viewModel.getTrafficLights(RadiusConfiguration.Radius.KM_15)
-                    }
+                    val radius = getRadiusFromIndex(position)
+                    viewModel.getTrafficLights(radius)
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
