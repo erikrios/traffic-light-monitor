@@ -250,4 +250,19 @@ class DashboardFragment : Fragment() {
             tvRadius.visibility = View.VISIBLE
         }
     }
+
+    private fun handlePermissionDeniedView() {
+        binding?.apply {
+            lavPermissionDenied.visibility = View.VISIBLE
+            btnRequestPermission.apply {
+                visibility = View.VISIBLE
+                setOnClickListener {
+                    requestPermission.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+                }
+            }
+            spinnerRadius.visibility = View.GONE
+            rvTrafficLights.visibility = View.GONE
+            tvRadius.visibility = View.GONE
+        }
+    }
 }
