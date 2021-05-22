@@ -49,9 +49,11 @@ class DashboardFragment : Fragment() {
                         setUpLocationListener()
                     }
                     else -> {
-                        PermissionUtils.showGPSNotEnableDialog(requireContext()) {
-                            navigateToLocationSetting()
-                        }
+                        PermissionUtils.showGPSNotEnableDialog(
+                            requireContext(),
+                            onPositiveButtonClickListener = { navigateToLocationSetting() },
+                            onNegativeButtonClickListener = { activity?.finish() }
+                        )
                     }
                 }
             } else {
@@ -106,9 +108,11 @@ class DashboardFragment : Fragment() {
                         setUpLocationListener()
                     }
                     else -> {
-                        PermissionUtils.showGPSNotEnableDialog(requireContext()) {
-                            navigateToLocationSetting()
-                        }
+                        PermissionUtils.showGPSNotEnableDialog(
+                            requireContext(),
+                            onPositiveButtonClickListener = { navigateToLocationSetting() },
+                            onNegativeButtonClickListener = { activity?.finish() }
+                        )
                     }
                 }
             }
