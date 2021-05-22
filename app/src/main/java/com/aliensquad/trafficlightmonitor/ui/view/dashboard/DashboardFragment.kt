@@ -14,6 +14,7 @@ import com.aliensquad.trafficlightmonitor.data.model.TrafficLight
 import com.aliensquad.trafficlightmonitor.databinding.FragmentDashboardBinding
 import com.aliensquad.trafficlightmonitor.ui.adapter.TrafficLightAdapter
 import com.aliensquad.trafficlightmonitor.ui.viewmodel.DashboardViewModel
+import com.aliensquad.trafficlightmonitor.utils.RadiusConfiguration
 import com.aliensquad.trafficlightmonitor.utils.RadiusConfiguration.generateRadiusValues
 import com.aliensquad.trafficlightmonitor.utils.RadiusConfiguration.getRadiusFromIndex
 import com.aliensquad.trafficlightmonitor.utils.Resource
@@ -26,6 +27,11 @@ class DashboardFragment : Fragment() {
     private val binding get() = _binding
     private val adapter = TrafficLightAdapter { navigateToDetailsFragment(it) }
     private val viewModel: DashboardViewModel by viewModel()
+    private var recentRadius = RadiusConfiguration.Radius.KM_15
+
+    companion object {
+        private const val RECENT_RADIUS_KEY = "recent_radius_key"
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,6 +43,9 @@ class DashboardFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        savedInstanceState?.let {
+            recentRadius = it.getSerializable(RECENT_RADIUS_KEY) as RadiusConfiguration.Radius
+        }
         handleToolbar()
         handleRecyclerView()
         handleSpinner()
@@ -44,6 +53,11 @@ class DashboardFragment : Fragment() {
             viewLifecycleOwner,
             this@DashboardFragment::handleState
         )
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putSerializable(RECENT_RADIUS_KEY, recentRadius)
     }
 
     override fun onDestroyView() {
@@ -96,7 +110,10 @@ class DashboardFragment : Fragment() {
                     id: Long
                 ) {
                     val radius = getRadiusFromIndex(position)
-                    viewModel.getTrafficLights(radius)
+                    if (radius != recentRadius) {
+                        viewModel.getTrafficLights(radius)
+                        recentRadius = radius
+                    }
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
