@@ -170,6 +170,10 @@ class DashboardFragment : Fragment() {
                     position: Int,
                     id: Long
                 ) {
+                    Log.d(
+                        DashboardFragment::class.java.simpleName,
+                        "Lat: $recentLatitude | Long: $recentLongitude"
+                    )
                     val radius = getRadiusFromIndex(position)
                     if (radius != recentRadius) {
                         viewModel.getTrafficLights(radius)
@@ -235,5 +239,15 @@ class DashboardFragment : Fragment() {
     private fun navigateToLocationSetting() {
         val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
         context?.startActivity(intent)
+    }
+
+    private fun handlePermissionGrantedView() {
+        binding?.apply {
+            lavPermissionDenied.visibility = View.GONE
+            btnRequestPermission.visibility = View.GONE
+            spinnerRadius.visibility = View.VISIBLE
+            rvTrafficLights.visibility = View.VISIBLE
+            tvRadius.visibility = View.VISIBLE
+        }
     }
 }
