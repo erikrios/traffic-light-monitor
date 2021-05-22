@@ -67,4 +67,5 @@ ext {
     circleImageViewVersion = '3.1.0'
     lottieVersion = '3.4.1'
     koinVersion = '2.1.6'
+    shimmerVersion = '0.5.0'
 }
