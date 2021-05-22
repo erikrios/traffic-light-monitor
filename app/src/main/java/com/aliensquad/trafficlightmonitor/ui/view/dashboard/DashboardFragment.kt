@@ -41,6 +41,7 @@ class DashboardFragment : Fragment() {
             if (isGranted) {
                 when {
                     PermissionUtils.isLocationEnabled(requireContext()) -> {
+                        handlePermissionGrantedView()
                         setUpLocationListener()
                         handleSpinner()
                     }
@@ -51,7 +52,7 @@ class DashboardFragment : Fragment() {
                     }
                 }
             } else {
-                Log.d(DashboardFragment::class.java.simpleName, "Permission denied")
+                handlePermissionDeniedView()
             }
         }
     private var _binding: FragmentDashboardBinding? = null
