@@ -16,6 +16,7 @@ import com.aliensquad.trafficlightmonitor.ui.adapter.TrafficLightAdapter
 import com.aliensquad.trafficlightmonitor.ui.viewmodel.DashboardViewModel
 import com.aliensquad.trafficlightmonitor.utils.RadiusConfiguration
 import com.aliensquad.trafficlightmonitor.utils.RadiusConfiguration.generateRadiusValues
+import com.aliensquad.trafficlightmonitor.utils.RadiusConfiguration.getRadiusFromIndex
 import com.aliensquad.trafficlightmonitor.utils.Resource
 import com.aliensquad.trafficlightmonitor.utils.Status
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -26,6 +27,11 @@ class DashboardFragment : Fragment() {
     private val binding get() = _binding
     private val adapter = TrafficLightAdapter { navigateToDetailsFragment(it) }
     private val viewModel: DashboardViewModel by viewModel()
+    private var recentRadius = RadiusConfiguration.Radius.KM_15
+
+    companion object {
+        private const val RECENT_RADIUS_KEY = "recent_radius_key"
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,6 +43,9 @@ class DashboardFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        savedInstanceState?.let {
+            recentRadius = it.getSerializable(RECENT_RADIUS_KEY) as RadiusConfiguration.Radius
+        }
         handleToolbar()
         handleRecyclerView()
         handleSpinner()
@@ -44,6 +53,11 @@ class DashboardFragment : Fragment() {
             viewLifecycleOwner,
             this@DashboardFragment::handleState
         )
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putSerializable(RECENT_RADIUS_KEY, recentRadius)
     }
 
     override fun onDestroyView() {
@@ -95,14 +109,10 @@ class DashboardFragment : Fragment() {
                     position: Int,
                     id: Long
                 ) {
-                    when (position) {
-                        0 -> viewModel.getTrafficLights(RadiusConfiguration.Radius.KM_3)
-                        1 -> viewModel.getTrafficLights(RadiusConfiguration.Radius.KM_5)
-                        2 -> viewModel.getTrafficLights(RadiusConfiguration.Radius.KM_7)
-                        3 -> viewModel.getTrafficLights(RadiusConfiguration.Radius.KM_9)
-                        4 -> viewModel.getTrafficLights(RadiusConfiguration.Radius.KM_11)
-                        5 -> viewModel.getTrafficLights(RadiusConfiguration.Radius.KM_13)
-                        6 -> viewModel.getTrafficLights(RadiusConfiguration.Radius.KM_15)
+                    val radius = getRadiusFromIndex(position)
+                    if (radius != recentRadius) {
+                        viewModel.getTrafficLights(radius)
+                        recentRadius = radius
                     }
                 }
 
