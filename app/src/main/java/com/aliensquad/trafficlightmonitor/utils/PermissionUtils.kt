@@ -2,10 +2,8 @@ package com.aliensquad.trafficlightmonitor.utils
 
 import android.Manifest
 import android.content.Context
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.LocationManager
-import android.provider.Settings
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -13,14 +11,6 @@ import androidx.core.content.ContextCompat
 import com.aliensquad.trafficlightmonitor.R
 
 object PermissionUtils {
-
-    fun requestAccessFineLocationPermission(activity: AppCompatActivity, requestId: Int) {
-        ActivityCompat.requestPermissions(
-            activity,
-            arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-            requestId
-        )
-    }
 
     fun isAccessFineLocationGranted(context: Context): Boolean {
         return ContextCompat
@@ -38,14 +28,16 @@ object PermissionUtils {
         )
     }
 
-    fun showGPSNotEnableDialog(context: Context) {
+    fun showGPSNotEnableDialog(
+        context: Context,
+        onPositiveButtonClickListener: (() -> Unit)
+    ) {
         AlertDialog.Builder(context)
             .setTitle(context.getString(R.string.enable_gps))
             .setMessage(context.getString(R.string.enable_gps_required_message))
             .setCancelable(false)
             .setPositiveButton(context.getString(R.string.enable_now)) { _, _ ->
-                val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
-                context.startActivity(intent)
+                onPositiveButtonClickListener()
             }
             .show()
     }
