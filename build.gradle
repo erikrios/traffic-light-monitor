@@ -68,4 +68,5 @@ ext {
     lottieVersion = '3.4.1'
     koinVersion = '2.1.6'
     shimmerVersion = '0.5.0'
+    playServicesLocation = '18.0.0'
 }
