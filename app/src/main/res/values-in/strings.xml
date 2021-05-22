@@ -13,4 +13,5 @@
     <string name="enable_gps">Aktifkan GPS</string>
     <string name="enable_now">Aktifkan Sekarang</string>
     <string name="enable_gps_required_message">Untuk menggunakan aplikasi ini, perlu menggunakan GPS. Silahkan aktifkan GPS Anda.</string>
+    <string name="enable_location_permission">Aktifkan Perizinan Lokasi</string>
 </resources>
