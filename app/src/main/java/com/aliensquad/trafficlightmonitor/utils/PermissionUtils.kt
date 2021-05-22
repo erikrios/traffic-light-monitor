@@ -28,7 +28,8 @@ object PermissionUtils {
 
     fun showGPSNotEnableDialog(
         context: Context,
-        onPositiveButtonClickListener: (() -> Unit)
+        onPositiveButtonClickListener: (() -> Unit),
+        onNegativeButtonClickListener: (() -> Unit)
     ) {
         AlertDialog.Builder(context)
             .setTitle(context.getString(R.string.enable_gps))
@@ -36,6 +37,11 @@ object PermissionUtils {
             .setCancelable(false)
             .setPositiveButton(context.getString(R.string.enable_now)) { _, _ ->
                 onPositiveButtonClickListener()
+            }
+            .setNegativeButton(
+                context.getString(R.string.exit)
+            ) { _, _ ->
+                onNegativeButtonClickListener()
             }
             .show()
     }
