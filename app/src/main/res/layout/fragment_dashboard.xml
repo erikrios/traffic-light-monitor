@@ -74,4 +74,28 @@
 
     </com.facebook.shimmer.ShimmerFrameLayout>
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lav_permission_denied"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:lottie_autoPlay="true"
+        app:lottie_fileName="access-location.json"
+        app:lottie_loop="true" />
+
+    <Button
+        android:id="@+id/btn_request_permission"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="@string/enable_location_permission"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
