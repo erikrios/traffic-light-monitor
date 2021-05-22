@@ -22,4 +22,6 @@
 
     <include layout="@layout/item_traffic_light_placeholder" />
 
+    <include layout="@layout/item_traffic_light_placeholder" />
+
 </LinearLayout>
