@@ -120,4 +120,7 @@ dependencies {
 
     // Lottie
     implementation "com.airbnb.android:lottie:$lottieVersion"
+
+    // Shimmer
+    implementation "com.facebook.shimmer:shimmer:$shimmerVersion"
 }
