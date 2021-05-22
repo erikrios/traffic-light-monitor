@@ -9,4 +9,6 @@
     <string name="intersections">Intersections</string>
     <string name="intersection_info">%1$s (%2$d seconds of waiting time)</string>
     <string name="about_apps">About Apps</string>
+    <string name="enable_gpr">Enable GPS</string>
+    <string name="enable_now">Enable Now</string>
 </resources>
