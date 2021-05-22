@@ -11,6 +11,7 @@
     <string name="about_apps">About Apps</string>
     <string name="enable_gps">Enable GPS</string>
     <string name="enable_now">Enable Now</string>
+    <string name="exit">Exit</string>
     <string name="enable_gps_required_message">To use this application, it is necessary to use GPS. Please enable your GPS.</string>
     <string name="enable_location_permission">Enable Location Permission</string>
 </resources>
