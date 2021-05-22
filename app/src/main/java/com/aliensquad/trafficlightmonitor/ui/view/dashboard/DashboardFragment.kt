@@ -42,8 +42,11 @@ class DashboardFragment : Fragment() {
                 when {
                     PermissionUtils.isLocationEnabled(requireContext()) -> {
                         handlePermissionGrantedView()
+                        viewModel.trafficLightsState.observe(
+                            viewLifecycleOwner,
+                            this@DashboardFragment::handleState
+                        )
                         setUpLocationListener()
-                        handleSpinner()
                     }
                     else -> {
                         PermissionUtils.showGPSNotEnableDialog(requireContext()) {
@@ -60,8 +63,8 @@ class DashboardFragment : Fragment() {
     private val adapter = TrafficLightAdapter { navigateToDetailsFragment(it) }
     private val viewModel: DashboardViewModel by viewModel()
     private var recentRadius = RadiusConfiguration.Radius.KM_15
-    private var recentLatitude = -1.0
-    private var recentLongitude = -1.0
+    private var recentLatitude = -8.0181039
+    private var recentLongitude = 111.4672751
 
     companion object {
         private const val RECENT_RADIUS_KEY = "recent_radius_key"
@@ -85,11 +88,8 @@ class DashboardFragment : Fragment() {
             recentLongitude = it.getDouble(RECENT_LONGITUDE_KEY)
         }
         handleToolbar()
+        handleSpinner()
         handleRecyclerView()
-        viewModel.trafficLightsState.observe(
-            viewLifecycleOwner,
-            this@DashboardFragment::handleState
-        )
     }
 
     override fun onStart() {
@@ -98,6 +98,11 @@ class DashboardFragment : Fragment() {
             PermissionUtils.isAccessFineLocationGranted(requireContext()) -> {
                 when {
                     PermissionUtils.isLocationEnabled(requireContext()) -> {
+                        handlePermissionGrantedView()
+                        viewModel.trafficLightsState.observe(
+                            viewLifecycleOwner,
+                            this@DashboardFragment::handleState
+                        )
                         setUpLocationListener()
                     }
                     else -> {
@@ -108,6 +113,7 @@ class DashboardFragment : Fragment() {
                 }
             }
             else -> {
+                handlePermissionDeniedView()
                 requestPermission.launch(Manifest.permission.ACCESS_FINE_LOCATION)
             }
         }
@@ -261,9 +267,9 @@ class DashboardFragment : Fragment() {
                     requestPermission.launch(Manifest.permission.ACCESS_FINE_LOCATION)
                 }
             }
-            spinnerRadius.visibility = View.GONE
+            spinnerRadius.visibility = View.INVISIBLE
             rvTrafficLights.visibility = View.GONE
-            tvRadius.visibility = View.GONE
+            tvRadius.visibility = View.INVISIBLE
         }
     }
 }
