@@ -19,10 +19,15 @@ class DashboardViewModel(private val trafficLightRepository: TrafficLightReposit
 
     val trafficLightsState: LiveData<Resource<List<TrafficLight>>> get() = _trafficLightsState
 
-    fun getTrafficLights(radius: RadiusConfiguration.Radius): Job {
+    fun getTrafficLights(
+        radius: RadiusConfiguration.Radius,
+        latitude: Double,
+        longitude: Double
+    ): Job {
         return viewModelScope.launch {
             _trafficLightsState.value = Resource.loading(null)
-            _trafficLightsState.value = trafficLightRepository.getTrafficLights(radius)
+            _trafficLightsState.value =
+                trafficLightRepository.getTrafficLights(radius, latitude, longitude)
         }
     }
 }
