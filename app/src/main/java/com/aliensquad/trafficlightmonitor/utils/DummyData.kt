@@ -13,13 +13,44 @@ object DummyData {
                 i.toLong(),
                 "Lampu Merah Pos Mlilir $i",
                 "$i Jl. Raya Ponorogo - Madiun, Tenggang, Ngrupit, Kec. Jenangan, Kabupaten Ponorogo, Jawa Timur, 63492",
+                -8.908560,
+                111.567271,
                 39 + i,
                 listOf(
-                    Intersection("Persimpangan 1", 25, "RED"),
-                    Intersection("Persimpangan 2", 22, "RED"),
-                    Intersection("Persimpangan 3", 19, "GREEN"),
-                    Intersection("Persimpangan 4", 31, "YELLOW"),
-                )
+                    Intersection(
+                        (i + 0).toLong(),
+                        "Persimpangan 1",
+                        -8.909560,
+                        111.569271,
+                        19,
+                        1
+                    ),
+                    Intersection(
+                        (i + 1).toLong(),
+                        "Persimpangan 2",
+                        -8.909660,
+                        111.569471,
+                        33,
+                        1
+                    ),
+                    Intersection(
+                        (i + 2).toLong(),
+                        "Persimpangan 3",
+                        -8.909760,
+                        111.570271,
+                        25,
+                        2
+                    ),
+                    Intersection(
+                        (i + 3).toLong(),
+                        "Persimpangan 4",
+                        -8.909860,
+                        111.5703271,
+                        16,
+                        3
+                    ),
+                ),
+                0
             )
             trafficLights.add(trafficLight)
         }
