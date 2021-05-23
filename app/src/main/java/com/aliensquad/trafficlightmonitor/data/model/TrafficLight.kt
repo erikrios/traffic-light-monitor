@@ -12,8 +12,14 @@ data class TrafficLight(
     val name: String,
     @SerializedName("address")
     val address: String,
+    @SerializedName("latitude")
+    val latitude: Double,
+    @SerializedName("longitude")
+    val longitude: Double,
     @SerializedName("vehiclesDensityInMinutes")
-    val vehiclesDensityInMinutes: Int? = null,
+    val vehiclesDensityInMinutes: Int,
     @SerializedName("intersections")
-    val intersections: List<Intersection>? = null
+    val intersections: List<Intersection>? = null,
+    @SerializedName("distance")
+    val distance: Int
 ) : Parcelable
