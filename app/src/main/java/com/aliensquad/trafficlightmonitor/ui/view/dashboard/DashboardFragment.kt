@@ -46,11 +46,13 @@ class DashboardFragment : Fragment() {
                         setUpLocationListener()
                     }
                     else -> {
+                        binding?.viewPager2?.visibility = View.INVISIBLE
                         PermissionUtils.showGPSNotEnableDialog(
                             requireContext(),
                             onPositiveButtonClickListener = { navigateToLocationSetting() },
                             onNegativeButtonClickListener = { activity?.finish() }
                         )
+                        viewModel.getTrafficLights(recentRadius, recentLatitude, recentLongitude)
                     }
                 }
             } else {
@@ -100,11 +102,13 @@ class DashboardFragment : Fragment() {
                         setUpLocationListener()
                     }
                     else -> {
+                        binding?.viewPager2?.visibility = View.INVISIBLE
                         PermissionUtils.showGPSNotEnableDialog(
                             requireContext(),
                             onPositiveButtonClickListener = { navigateToLocationSetting() },
                             onNegativeButtonClickListener = { activity?.finish() }
                         )
+                        viewModel.getTrafficLights(recentRadius, recentLatitude, recentLongitude)
                     }
                 }
             }
