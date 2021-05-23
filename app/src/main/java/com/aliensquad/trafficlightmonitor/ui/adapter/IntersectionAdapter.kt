@@ -39,10 +39,10 @@ class IntersectionAdapter :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(intersection: Intersection) {
-            val resource = when (intersection.currentStatus.uppercase()) {
-                "YELLOW" -> getTrafficLightStatusResource(ImageConfiguration.TrafficLightStatus.YELLOW)
-                "GREEN" -> getTrafficLightStatusResource(ImageConfiguration.TrafficLightStatus.GREEN)
-                else -> getTrafficLightStatusResource(ImageConfiguration.TrafficLightStatus.RED)
+            val resource = when (intersection.currentStatus) {
+                1 -> getTrafficLightStatusResource(ImageConfiguration.TrafficLightStatus.RED)
+                2 -> getTrafficLightStatusResource(ImageConfiguration.TrafficLightStatus.YELLOW)
+                else -> getTrafficLightStatusResource(ImageConfiguration.TrafficLightStatus.GREEN)
             }
             binding.tvInfo.apply {
                 text = itemView.context.getString(
