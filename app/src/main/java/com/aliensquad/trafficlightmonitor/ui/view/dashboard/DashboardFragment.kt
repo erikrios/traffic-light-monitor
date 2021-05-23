@@ -12,26 +12,27 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.viewpager2.widget.ViewPager2
 import com.aliensquad.trafficlightmonitor.R
-import com.aliensquad.trafficlightmonitor.data.model.TrafficLight
 import com.aliensquad.trafficlightmonitor.databinding.FragmentDashboardBinding
-import com.aliensquad.trafficlightmonitor.ui.adapter.TrafficLightAdapter
+import com.aliensquad.trafficlightmonitor.ui.adapter.TrafficLightPagerAdapter
+import com.aliensquad.trafficlightmonitor.ui.view.list.ListFragment
+import com.aliensquad.trafficlightmonitor.ui.view.maps.MapsFragment
 import com.aliensquad.trafficlightmonitor.ui.viewmodel.DashboardViewModel
 import com.aliensquad.trafficlightmonitor.utils.PermissionUtils
 import com.aliensquad.trafficlightmonitor.utils.RadiusConfiguration
 import com.aliensquad.trafficlightmonitor.utils.RadiusConfiguration.generateRadiusValues
 import com.aliensquad.trafficlightmonitor.utils.RadiusConfiguration.getRadiusFromIndex
-import com.aliensquad.trafficlightmonitor.utils.Resource
-import com.aliensquad.trafficlightmonitor.utils.Status
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class DashboardFragment : Fragment() {
@@ -42,10 +43,6 @@ class DashboardFragment : Fragment() {
                 when {
                     PermissionUtils.isLocationEnabled(requireContext()) -> {
                         handlePermissionGrantedView()
-                        viewModel.trafficLightsState.observe(
-                            viewLifecycleOwner,
-                            this@DashboardFragment::handleState
-                        )
                         setUpLocationListener()
                     }
                     else -> {
@@ -62,7 +59,6 @@ class DashboardFragment : Fragment() {
         }
     private var _binding: FragmentDashboardBinding? = null
     private val binding get() = _binding
-    private val adapter = TrafficLightAdapter { navigateToDetailsFragment(it) }
     private val viewModel: DashboardViewModel by viewModel()
     private var recentRadius = RadiusConfiguration.Radius.KM_15
     private var recentLatitude = -8.0181039
@@ -90,8 +86,8 @@ class DashboardFragment : Fragment() {
             recentLongitude = it.getDouble(RECENT_LONGITUDE_KEY)
         }
         handleToolbar()
+        handleTabs()
         handleSpinner()
-        handleRecyclerView()
     }
 
     override fun onStart() {
@@ -101,10 +97,6 @@ class DashboardFragment : Fragment() {
                 when {
                     PermissionUtils.isLocationEnabled(requireContext()) -> {
                         handlePermissionGrantedView()
-                        viewModel.trafficLightsState.observe(
-                            viewLifecycleOwner,
-                            this@DashboardFragment::handleState
-                        )
                         setUpLocationListener()
                     }
                     else -> {
@@ -137,33 +129,6 @@ class DashboardFragment : Fragment() {
         _binding = null
     }
 
-    private fun handleState(resource: Resource<List<TrafficLight>>) {
-        when (resource.status) {
-            Status.LOADING -> handleLoadingState()
-            Status.ERROR -> handleErrorState(resource.message.toString())
-            Status.SUCCESS -> handleSuccessState(resource.data)
-        }
-    }
-
-    private fun handleLoadingState() {
-        binding?.progressBar?.visibility = View.VISIBLE
-    }
-
-    private fun handleErrorState(message: String) {
-        binding?.progressBar?.visibility = View.GONE
-        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-    }
-
-    private fun handleSuccessState(trafficLights: List<TrafficLight>?) {
-        binding?.progressBar?.visibility = View.GONE
-        trafficLights?.let {
-            adapter.setTrafficLights(it)
-        }
-    }
-
-    private fun handleRecyclerView() {
-        binding?.rvTrafficLights?.adapter = adapter
-    }
 
     private fun handleSpinner() {
         val radiusValues = generateRadiusValues()
@@ -205,11 +170,6 @@ class DashboardFragment : Fragment() {
         }
     }
 
-    private fun navigateToDetailsFragment(trafficLight: TrafficLight) {
-        val action =
-            DashboardFragmentDirections.actionDashboardFragmentToDetailsFragment(trafficLight)
-        findNavController().navigate(action)
-    }
 
     private fun navigateToAboutFragment() {
         val action = DashboardFragmentDirections.actionDashboardFragmentToAboutFragment()
@@ -257,7 +217,8 @@ class DashboardFragment : Fragment() {
             lavPermissionDenied.visibility = View.GONE
             btnRequestPermission.visibility = View.GONE
             spinnerRadius.visibility = View.VISIBLE
-            rvTrafficLights.visibility = View.VISIBLE
+            tabLayout.visibility = View.VISIBLE
+            viewPager2.visibility = View.VISIBLE
             tvRadius.visibility = View.VISIBLE
         }
     }
@@ -272,8 +233,28 @@ class DashboardFragment : Fragment() {
                 }
             }
             spinnerRadius.visibility = View.INVISIBLE
-            rvTrafficLights.visibility = View.GONE
+            tabLayout.visibility = View.INVISIBLE
+            viewPager2.visibility = View.INVISIBLE
             tvRadius.visibility = View.INVISIBLE
         }
+    }
+
+    private fun handleTabs() {
+        val fragments = listOf(
+            ListFragment(),
+            MapsFragment()
+        )
+        binding?.viewPager2?.adapter = TrafficLightPagerAdapter(this, fragments)
+        TabLayoutMediator(
+            binding?.tabLayout as TabLayout,
+            binding?.viewPager2 as ViewPager2
+        ) { tab, position ->
+            tab.apply {
+                when (position) {
+                    0 -> text = getString(R.string.list)
+                    1 -> text = getString(R.string.maps)
+                }
+            }
+        }.attach()
     }
 }
