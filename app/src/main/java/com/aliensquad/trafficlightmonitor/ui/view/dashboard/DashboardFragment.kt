@@ -187,7 +187,7 @@ class DashboardFragment : Fragment() {
                     )
                     val radius = getRadiusFromIndex(position)
                     if (radius != recentRadius) {
-                        viewModel.getTrafficLights(radius)
+                        viewModel.getTrafficLights(radius, recentLatitude, recentLongitude)
                         recentRadius = radius
                     }
                 }
