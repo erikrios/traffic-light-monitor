@@ -15,4 +15,6 @@
     <string name="exit">Keluar</string>
     <string name="enable_gps_required_message">Untuk menggunakan aplikasi ini, perlu menggunakan GPS. Silahkan aktifkan GPS Anda.</string>
     <string name="enable_location_permission">Aktifkan Perizinan Lokasi</string>
+    <string name="list">List</string>
+    <string name="maps">Peta</string>
 </resources>
