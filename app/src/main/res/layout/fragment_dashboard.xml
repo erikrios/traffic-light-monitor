@@ -45,11 +45,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_radius"
-        app:tabBackground="@android:color/white"
-        app:tabIndicatorColor="@color/purple_dark_500"
-        app:tabSelectedTextColor="@color/black"
-        app:tabTextColor="#74000000" />
+        app:layout_constraintTop_toBottomOf="@id/tv_radius" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/view_pager_2"
