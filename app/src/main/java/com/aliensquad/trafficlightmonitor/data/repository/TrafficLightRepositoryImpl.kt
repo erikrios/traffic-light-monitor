@@ -14,16 +14,20 @@ class TrafficLightRepositoryImpl(
     private val localDataSource: LocalDataSource
 ) : TrafficLightRepository {
 
-    override suspend fun getTrafficLights(radius: RadiusConfiguration.Radius): Resource<List<TrafficLight>> {
+    override suspend fun getTrafficLights(
+        radius: RadiusConfiguration.Radius,
+        latitude: Double,
+        longitude: Double
+    ): Resource<List<TrafficLight>> {
         if (networkHelper.isNetworkConnected()) {
-            val trafficLightsResource = remoteDataSource.getTrafficLights(radius)
+            val trafficLightsResource = remoteDataSource.getTrafficLights(radius, latitude, longitude)
             if (trafficLightsResource.status == Status.SUCCESS) localDataSource.addCaches(
                 radius,
                 trafficLightsResource.data as List<TrafficLight>
             )
             return trafficLightsResource
         } else {
-            val trafficLightResource = localDataSource.getTrafficLights(radius)
+            val trafficLightResource = localDataSource.getTrafficLights(radius, latitude, longitude)
             return when (trafficLightResource.status) {
                 Status.SUCCESS -> trafficLightResource
                 else -> Resource.error(
