@@ -9,7 +9,11 @@ class LocalDataSource : DataSource {
 
     private val trafficLightCaches = mutableMapOf<RadiusConfiguration.Radius, List<TrafficLight>>()
 
-    override suspend fun getTrafficLights(radius: RadiusConfiguration.Radius): Resource<List<TrafficLight>> {
+    override suspend fun getTrafficLights(
+        radius: RadiusConfiguration.Radius,
+        latitude: Double,
+        longitude: Double
+    ): Resource<List<TrafficLight>> {
         val trafficLights = trafficLightCaches[radius]
         if (trafficLights.isNullOrEmpty()) {
             return Resource.error("The data is null or empty.", null)
