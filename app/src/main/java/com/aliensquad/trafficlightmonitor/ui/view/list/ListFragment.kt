@@ -14,14 +14,16 @@ import com.aliensquad.trafficlightmonitor.ui.view.dashboard.DashboardFragmentDir
 import com.aliensquad.trafficlightmonitor.ui.viewmodel.DashboardViewModel
 import com.aliensquad.trafficlightmonitor.utils.Resource
 import com.aliensquad.trafficlightmonitor.utils.Status
-import org.koin.android.viewmodel.ext.android.sharedViewModel
+import org.koin.android.viewmodel.ext.android.getViewModel
 
 
 class ListFragment : Fragment() {
 
     private var _binding: FragmentListBinding? = null
     private val binding get() = _binding
-    private val dashboardViewModel: DashboardViewModel by sharedViewModel()
+    private val dashboardViewModel by lazy {
+        requireParentFragment().getViewModel<DashboardViewModel>()
+    }
     private val adapter = TrafficLightAdapter { navigateToDetailsFragment(it) }
 
     override fun onCreateView(
