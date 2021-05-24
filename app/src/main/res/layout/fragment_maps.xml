@@ -14,8 +14,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:mapbox_cameraTargetLat="-8.018560"
-        app:mapbox_cameraTargetLng="111.467271"
-        app:mapbox_cameraZoom="4" />
+        app:mapbox_cameraTargetLat="-3"
+        app:mapbox_cameraTargetLng="111"
+        app:mapbox_cameraZoom="2.6" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
