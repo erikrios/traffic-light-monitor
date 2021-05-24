@@ -1,10 +1,14 @@
 package com.aliensquad.trafficlightmonitor.ui.view.maps
 
+import android.annotation.SuppressLint
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.BounceInterpolator
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.aliensquad.trafficlightmonitor.BuildConfig.PUBLIC_TOKEN
@@ -15,10 +19,17 @@ import com.aliensquad.trafficlightmonitor.ui.view.dashboard.DashboardFragmentDir
 import com.aliensquad.trafficlightmonitor.ui.viewmodel.DashboardViewModel
 import com.aliensquad.trafficlightmonitor.utils.Resource
 import com.google.gson.Gson
+import com.mapbox.android.core.permissions.PermissionsListener
+import com.mapbox.android.core.permissions.PermissionsManager
 import com.mapbox.mapboxsdk.Mapbox
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory
 import com.mapbox.mapboxsdk.geometry.LatLng
 import com.mapbox.mapboxsdk.geometry.LatLngBounds
+import com.mapbox.mapboxsdk.location.LocationComponent
+import com.mapbox.mapboxsdk.location.LocationComponentActivationOptions
+import com.mapbox.mapboxsdk.location.LocationComponentOptions
+import com.mapbox.mapboxsdk.location.modes.CameraMode
+import com.mapbox.mapboxsdk.location.modes.RenderMode
 import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.Style
 import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager
@@ -33,6 +44,11 @@ class MapsFragment : Fragment() {
         requireParentFragment().getViewModel<DashboardViewModel>()
     }
     private lateinit var mapboxMap: MapboxMap
+    private lateinit var locationComponent: LocationComponent
+    private lateinit var myLocation: LatLng
+    private lateinit var permissionManager: PermissionsManager
+    private var recentLatitude = -1.0
+    private var recentLongitude = -1.0
 
     companion object {
         private const val ICON_ID = "ICON_ID"
@@ -49,6 +65,14 @@ class MapsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        dashboardViewModel.apply {
+            latitude.observe(viewLifecycleOwner, {
+                recentLatitude = it
+            })
+            longitude.observe(viewLifecycleOwner, {
+                recentLongitude = it
+            })
+        }
         binding?.mapView?.getMapAsync { mapboxMap ->
             this.mapboxMap = mapboxMap
             getTrafficLightsData()
@@ -140,6 +164,65 @@ class MapsFragment : Fragment() {
                 val data = Gson().fromJson(symbol.data, TrafficLight::class.java)
                 navigateToDetailsFragment(data)
             }
+
+            showMyLocation(style)
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun showMyLocation(style: Style) {
+        if (PermissionsManager.areLocationPermissionsGranted(requireContext())) {
+            val locationComponentOptions = LocationComponentOptions.builder(requireContext())
+                .pulseEnabled(true)
+                .pulseColor(Color.BLUE)
+                .pulseAlpha(.4f)
+                .pulseInterpolator(BounceInterpolator())
+                .build()
+            val locationComponentActivationOptions = LocationComponentActivationOptions
+                .builder(requireContext(), style)
+                .locationComponentOptions(locationComponentOptions)
+                .build()
+            locationComponent = mapboxMap.locationComponent
+            locationComponent.apply {
+                activateLocationComponent(locationComponentActivationOptions)
+                isLocationComponentEnabled = true
+                cameraMode = CameraMode.TRACKING
+                renderMode = RenderMode.COMPASS
+            }
+
+            var latitude: Double
+            var longitude: Double
+            try {
+                latitude = locationComponent.lastKnownLocation?.latitude as Double
+                longitude = locationComponent.lastKnownLocation?.longitude as Double
+            } catch (e: Exception) {
+                latitude = recentLatitude
+                longitude = recentLongitude
+            }
+
+            myLocation = LatLng(latitude, longitude)
+            mapboxMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 12.0))
+        } else {
+            permissionManager = PermissionsManager(object : PermissionsListener {
+                override fun onExplanationNeeded(permissionsToExplain: MutableList<String>?) {
+                    Toast.makeText(
+                        context,
+                        getString(R.string.enable_location_permission_message),
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+
+                override fun onPermissionResult(granted: Boolean) {
+                    if (granted) {
+                        mapboxMap.getStyle { style ->
+                            showMyLocation(style)
+                        }
+                    } else {
+                        requireActivity().finish()
+                    }
+                }
+            })
+            permissionManager.requestLocationPermissions(requireActivity())
         }
     }
 
