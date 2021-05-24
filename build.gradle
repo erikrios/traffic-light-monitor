@@ -69,4 +69,8 @@ ext {
     koinVersion = '2.1.6'
     shimmerVersion = '0.5.0'
     playServicesLocation = '18.0.0'
+    mapboxAndroidSdkVersion = '9.2.0'
+    mapboxAndroidPluginAnnotationV8Version = '0.7.0'
+    mapboxAndroidNavigationUiVersion = '0.42.6'
+    mapboxAndroidTelemetryVersion = '6.1.0'
 }
