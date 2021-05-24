@@ -21,5 +21,5 @@ interface TrafficLightApiService {
 
 
     @GET("traffics/{id}")
-    suspend fun getTrafficDetails(@Path("id") id: Long): Response<Result<TrafficLight>>
+    suspend fun getTrafficLightDetails(@Path("id") id: Long): Response<Result<TrafficLight>>
 }
