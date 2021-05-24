@@ -14,6 +14,7 @@
     <string name="enable_now">Aktifkan Sekarang</string>
     <string name="exit">Keluar</string>
     <string name="enable_gps_required_message">Untuk menggunakan aplikasi ini, perlu menggunakan GPS. Silahkan aktifkan GPS Anda.</string>
+    <string name="enable_location_permission_message">Untuk menggunakan aplikasi ini, perlu menggunakan izin lokasi. Silahkan aktifkan izin lokasi Anda.</string>
     <string name="enable_location_permission">Aktifkan Perizinan Lokasi</string>
     <string name="list">List</string>
     <string name="maps">Peta</string>

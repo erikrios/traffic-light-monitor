@@ -13,6 +13,7 @@
     <string name="enable_now">Enable Now</string>
     <string name="exit">Exit</string>
     <string name="enable_gps_required_message">To use this application, it is necessary to use GPS. Please enable your GPS.</string>
+    <string name="enable_location_permission_message">To use this application, it is necessary to use location permission. Please enable your location permission.</string>
     <string name="enable_location_permission">Enable Location Permission</string>
     <string name="list">List</string>
     <string name="maps">Maps</string>
