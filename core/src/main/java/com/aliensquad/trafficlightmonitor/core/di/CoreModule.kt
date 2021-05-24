@@ -12,10 +12,13 @@ import com.aliensquad.trafficlightmonitor.core.utils.NetworkHelper
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import okhttp3.Interceptor
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 
 val networkModule = module {
     single {
@@ -37,6 +40,22 @@ val networkModule = module {
         GsonBuilder()
             .setLenient()
             .create()
+    }
+    single {
+        if (BuildConfig.DEBUG) {
+            OkHttpClient.Builder()
+                .callTimeout(20, TimeUnit.SECONDS)
+                .readTimeout(20, TimeUnit.SECONDS)
+                .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+                .addInterceptor(get<Interceptor>())
+                .build()
+        } else {
+            OkHttpClient.Builder()
+                .callTimeout(30, TimeUnit.SECONDS)
+                .readTimeout(30, TimeUnit.SECONDS)
+                .addInterceptor(get<Interceptor>())
+                .build()
+        }
     }
     single {
         Retrofit.Builder()
