@@ -43,6 +43,11 @@ class ListFragment : Fragment() {
         )
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     private fun handleState(resource: Resource<List<TrafficLight>>) {
         when (resource.status) {
             Status.LOADING -> handleLoadingState()
