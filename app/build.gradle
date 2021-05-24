@@ -6,6 +6,12 @@ plugins {
     id 'kotlin-kapt'
 }
 
+static def getPublicToken() {
+    Properties props = new Properties()
+    props.load(new FileInputStream(new File('secrets.properties')))
+    return props['PUBLIC_TOKEN']
+}
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
@@ -18,12 +24,17 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        manifestPlaceholders = [PUBLIC_TOKEN: getPublicToken()]
     }
 
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        applicationVariants.all { variant ->
+            variant.buildConfigField "String", "PUBLIC_TOKEN", "\"" + getPublicToken() + "\""
         }
     }
     compileOptions {
