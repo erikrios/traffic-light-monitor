@@ -6,6 +6,14 @@ plugins {
     id 'kotlin-kapt'
 }
 
+apply from: '../shared_dependencies.gradle'
+
+static def getPublicToken() {
+    Properties props = new Properties()
+    props.load(new FileInputStream(new File('secrets.properties')))
+    return props['PUBLIC_TOKEN']
+}
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
@@ -18,12 +26,17 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        manifestPlaceholders = [PUBLIC_TOKEN: getPublicToken()]
     }
 
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        applicationVariants.all { variant ->
+            variant.buildConfigField "String", "PUBLIC_TOKEN", "\"" + getPublicToken() + "\""
         }
     }
     compileOptions {
@@ -46,81 +59,13 @@ kapt {
 }
 
 dependencies {
-
+    implementation project(":core")
     //noinspection DifferentStdlibGradleVersion
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation "androidx.core:core-ktx:$coreKtxVersion"
-    implementation "androidx.appcompat:appcompat:$appCompatVersion"
-    implementation "com.google.android.material:material:$materialVersion"
-    implementation "androidx.constraintlayout:constraintlayout:$cnstraintLayoutVersion"
-    implementation "androidx.fragment:fragment-ktx:$fragmentKtxVersion"
 
-    // Local Unit Tests
-    implementation "androidx.test:core:$testCoreVersion"
-    testImplementation "junit:junit:$jUnitVersion"
-    testImplementation "org.mockito:mockito-core:$mockitoCoreVersion"
-    testImplementation "org.mockito:mockito-inline:$mockitoInlineVersion"
-    testImplementation "org.mockito.kotlin:mockito-kotlin:$mockitoKotlinVersion"
-    testImplementation "androidx.arch.core:core-testing:$coreTestingVersion"
-    testImplementation "com.google.truth:truth:$truthVersion"
-    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesTestVersion"
-
-    // Instrumented Unit Tests
-    androidTestImplementation "androidx.test.ext:junit:$jUnitExtVersion"
-    androidTestImplementation "androidx.test:rules:$testRulesVersion"
-    androidTestImplementation "androidx.test.espresso:espresso-core:$espressoCoreVersion"
-    androidTestImplementation "androidx.test.espresso:espresso-contrib:$espressoContribVersion"
-    androidTestImplementation "androidx.arch.core:core-testing:$coreTestingVersion"
-    androidTestImplementation "com.google.truth:truth:$truthVersion"
-    androidTestImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlinxCoroutinesTestVersion") {
-        // conflicts with mockito due to direct inclusion of byte buddy
-        exclude group: "org.jetbrains.kotlinx", module: "kotlinx-coroutines-debug"
-    }
-
-    // Recycler View
-    //noinspection GradleDependency
-    implementation "androidx.recyclerview:recyclerview:$recyclerViewVersion"
-
-    // Navigation Components
-    implementation "androidx.navigation:navigation-fragment-ktx:$navigationFragmentKtxVersion"
-    implementation "androidx.navigation:navigation-ui-ktx:$navigationUiKtxVersion"
-
-    // Architectural Components
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleViewmodelKtxVersion"
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleRuntimeKtxVersion"
-    implementation "androidx.legacy:legacy-support-v4:$legacySupportV4Version"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleLivedataKtxVersion"
-
-    // Espresso Idling Resource
-    implementation "androidx.test.espresso:espresso-idling-resource:$espressoIdlingResourceVersion"
-
-    // Retrofit
-    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
-    implementation "com.squareup.retrofit2:converter-gson:$converterGsonVersion"
-    implementation "com.squareup.okhttp3:logging-interceptor:$loggingInterceptorVersion"
-
-    // Coroutines
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinxCoroutinesCoreVersion"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinxCoroutinesAndroidVersion"
-
-    // Glide
-    implementation "com.github.bumptech.glide:glide:$glideVersion"
-    kapt "com.github.bumptech.glide:compiler:$glideCompilerVersion"
-
-    // Kenburns View
-    implementation "com.flaviofaria:kenburnsview:$kenburnsViewVersion"
-
-    // Circle Image View
-    implementation "de.hdodenhof:circleimageview:$circleImageViewVersion"
-
-    // Koin
-    implementation "org.koin:koin-core:$koinVersion"
-    implementation "org.koin:koin-android:$koinVersion"
-    implementation "org.koin:koin-android-viewmodel:$koinVersion"
-
-    // Lottie
-    implementation "com.airbnb.android:lottie:$lottieVersion"
-
-    // Shimmer
-    implementation "com.facebook.shimmer:shimmer:$shimmerVersion"
+    // Mapbox
+    implementation "com.mapbox.mapboxsdk:mapbox-android-sdk:$mapboxAndroidSdkVersion"
+    implementation "com.mapbox.mapboxsdk:mapbox-android-plugin-annotation-v8:$mapboxAndroidPluginAnnotationV8Version"
+    implementation "com.mapbox.mapboxsdk:mapbox-android-navigation-ui:$mapboxAndroidNavigationUiVersion"
+    implementation "com.mapbox.mapboxsdk:mapbox-android-telemetry:$mapboxAndroidTelemetryVersion"
 }

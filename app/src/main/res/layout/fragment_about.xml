@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_splash_screen"
     android:padding="16dp"
-    tools:context=".ui.view.about.AboutFragment">
+    tools:context=".about.AboutFragment">
 
     <ImageView
         android:id="@+id/img_logo"

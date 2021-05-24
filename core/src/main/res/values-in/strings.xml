@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Traffic Light Monitor</string>
+    <string name="intersection_info">%1$s (%2$d detik waktu tunggu)</string>
+    <string name="enable_gps">Aktifkan GPS</string>
+    <string name="enable_gps_required_message">Untuk menggunakan aplikasi ini, perlu menggunakan GPS. Silahkan aktifkan GPS Anda.</string>
+    <string name="enable_now">Aktifkan Sekarang</string>
+    <string name="exit">Keluar</string>
+</resources>

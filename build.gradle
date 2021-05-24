@@ -21,6 +21,7 @@ allprojects {
         mavenCentral()
         //noinspection JcenterRepositoryObsolete
         jcenter() // Warning: this repository is going to shut down soon
+        maven { url 'https://mapbox.bintray.com/mapbox' }
     }
 }
 
@@ -33,7 +34,7 @@ ext {
     appCompatVersion = '1.3.0'
     materialVersion = '1.3.0'
     cnstraintLayoutVersion = '2.0.4'
-    fragmentKtxVersion = '1.3.3'
+    fragmentKtxVersion = '1.3.4'
     testCoreVersion = '1.3.0'
     jUnitVersion = '4.13.2'
     coreTestingVersion = '2.1.0'
@@ -68,4 +69,9 @@ ext {
     lottieVersion = '3.4.1'
     koinVersion = '2.1.6'
     shimmerVersion = '0.5.0'
+    playServicesLocation = '18.0.0'
+    mapboxAndroidSdkVersion = '9.2.0'
+    mapboxAndroidPluginAnnotationV8Version = '0.7.0'
+    mapboxAndroidNavigationUiVersion = '0.42.6'
+    mapboxAndroidTelemetryVersion = '6.1.0'
 }
