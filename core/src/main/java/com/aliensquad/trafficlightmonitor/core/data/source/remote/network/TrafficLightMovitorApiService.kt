@@ -7,7 +7,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-interface TrafficLightApiService {
+interface TrafficLightMovitorApiService {
 
     @GET("traffics")
     suspend fun getTrafficLights(

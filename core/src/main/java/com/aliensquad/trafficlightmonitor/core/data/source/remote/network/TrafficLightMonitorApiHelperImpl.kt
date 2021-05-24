@@ -1,6 +1,6 @@
 package com.aliensquad.trafficlightmonitor.core.data.source.remote.network
 
-class TrafficLightApiHelperImpl(private val apiService: TrafficLightApiService) :
+class TrafficLightMonitorApiHelperImpl(private val apiService: TrafficLightMovitorApiService) :
     TrafficLightMonitorApiHelper {
 
     override suspend fun getTrafficLights(
