@@ -6,7 +6,6 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Looper.myLooper
 import android.provider.Settings
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -150,10 +149,6 @@ class DashboardFragment : Fragment() {
                     position: Int,
                     id: Long
                 ) {
-                    Log.d(
-                        DashboardFragment::class.java.simpleName,
-                        "Lat: $recentLatitude | Long: $recentLongitude"
-                    )
                     val radius = getRadiusFromIndex(position)
                     if (radius != recentRadius) {
                         viewModel.getTrafficLights(radius, recentLatitude, recentLongitude)
@@ -203,6 +198,7 @@ class DashboardFragment : Fragment() {
                         for (location in locationResult.locations) {
                             recentLatitude = location.latitude
                             recentLongitude = location.longitude
+                            viewModel.setLatitudeAndLongitude(recentLatitude, recentLongitude)
                         }
                     }
                 },
