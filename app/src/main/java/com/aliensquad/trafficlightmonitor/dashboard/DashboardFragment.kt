@@ -1,8 +1,12 @@
 package com.aliensquad.trafficlightmonitor.dashboard
 
 import android.Manifest
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.content.pm.PackageManager
+import android.location.LocationManager
 import android.os.Bundle
 import android.os.Looper.myLooper
 import android.provider.Settings
@@ -17,14 +21,14 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.aliensquad.trafficlightmonitor.R
-import com.aliensquad.trafficlightmonitor.databinding.FragmentDashboardBinding
 import com.aliensquad.trafficlightmonitor.core.ui.TrafficLightPagerAdapter
-import com.aliensquad.trafficlightmonitor.list.ListFragment
-import com.aliensquad.trafficlightmonitor.maps.MapsFragment
 import com.aliensquad.trafficlightmonitor.core.utils.PermissionUtils
 import com.aliensquad.trafficlightmonitor.core.utils.RadiusConfiguration
 import com.aliensquad.trafficlightmonitor.core.utils.RadiusConfiguration.generateRadiusValues
 import com.aliensquad.trafficlightmonitor.core.utils.RadiusConfiguration.getRadiusFromIndex
+import com.aliensquad.trafficlightmonitor.databinding.FragmentDashboardBinding
+import com.aliensquad.trafficlightmonitor.list.ListFragment
+import com.aliensquad.trafficlightmonitor.maps.MapsFragment
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
@@ -42,6 +46,7 @@ class DashboardFragment : Fragment() {
                     PermissionUtils.isLocationEnabled(requireContext()) -> {
                         handlePermissionGrantedView()
                         setUpLocationListener()
+                        viewModel.getTrafficLights(recentRadius, recentLatitude, recentLongitude)
                     }
                     else -> {
                         binding?.viewPager2?.visibility = View.INVISIBLE
@@ -50,13 +55,39 @@ class DashboardFragment : Fragment() {
                             onPositiveButtonClickListener = { navigateToLocationSetting() },
                             onNegativeButtonClickListener = { activity?.finish() }
                         )
-                        viewModel.getTrafficLights(recentRadius, recentLatitude, recentLongitude)
                     }
                 }
             } else {
                 handlePermissionDeniedView()
             }
         }
+    private val broadcastReceiver: BroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            intent?.action?.let {
+                if (it == "android.location.PROVIDERS_CHANGED") {
+                    when {
+                        PermissionUtils.isLocationEnabled(requireContext()) -> {
+                            handlePermissionGrantedView()
+                            setUpLocationListener()
+                            viewModel.getTrafficLights(
+                                recentRadius,
+                                recentLatitude,
+                                recentLongitude
+                            )
+                        }
+                        else -> {
+                            binding?.viewPager2?.visibility = View.INVISIBLE
+                            PermissionUtils.showGPSNotEnableDialog(
+                                requireContext(),
+                                onPositiveButtonClickListener = { navigateToLocationSetting() },
+                                onNegativeButtonClickListener = { activity?.finish() }
+                            )
+                        }
+                    }
+                }
+            }
+        }
+    }
     private var _binding: FragmentDashboardBinding? = null
     private val binding get() = _binding
     private val viewModel: DashboardViewModel by viewModel()
@@ -106,7 +137,6 @@ class DashboardFragment : Fragment() {
                             onPositiveButtonClickListener = { navigateToLocationSetting() },
                             onNegativeButtonClickListener = { activity?.finish() }
                         )
-                        viewModel.getTrafficLights(recentRadius, recentLatitude, recentLongitude)
                     }
                 }
             }
@@ -115,6 +145,14 @@ class DashboardFragment : Fragment() {
                 requestPermission.launch(Manifest.permission.ACCESS_FINE_LOCATION)
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        context?.registerReceiver(
+            broadcastReceiver,
+            IntentFilter(LocationManager.PROVIDERS_CHANGED_ACTION)
+        )
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -126,11 +164,15 @@ class DashboardFragment : Fragment() {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        context?.unregisterReceiver(broadcastReceiver)
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
 
     private fun handleSpinner() {
         val radiusValues = generateRadiusValues()
@@ -150,8 +192,15 @@ class DashboardFragment : Fragment() {
                 ) {
                     val radius = getRadiusFromIndex(position)
                     if (radius != recentRadius) {
-                        viewModel.getTrafficLights(radius, recentLatitude, recentLongitude)
-                        recentRadius = radius
+                        when {
+                            PermissionUtils.isLocationEnabled(requireContext()) -> {
+                                viewModel.getTrafficLights(radius, recentLatitude, recentLongitude)
+                                recentRadius = radius
+                            }
+                            else -> {
+                                binding?.viewPager2?.visibility = View.INVISIBLE
+                            }
+                        }
                     }
                 }
 
