@@ -8,12 +8,12 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.aliensquad.trafficlightmonitor.core.data.model.TrafficLight
-import com.aliensquad.trafficlightmonitor.dashboard.DashboardFragmentDirections
-import com.aliensquad.trafficlightmonitor.dashboard.DashboardViewModel
-import com.aliensquad.trafficlightmonitor.databinding.FragmentListBinding
 import com.aliensquad.trafficlightmonitor.core.ui.TrafficLightAdapter
 import com.aliensquad.trafficlightmonitor.core.utils.Resource
 import com.aliensquad.trafficlightmonitor.core.utils.Status
+import com.aliensquad.trafficlightmonitor.dashboard.DashboardFragmentDirections
+import com.aliensquad.trafficlightmonitor.dashboard.DashboardViewModel
+import com.aliensquad.trafficlightmonitor.databinding.FragmentListBinding
 import org.koin.android.viewmodel.ext.android.getViewModel
 
 
@@ -68,7 +68,12 @@ class ListFragment : Fragment() {
     private fun handleSuccessState(trafficLights: List<TrafficLight>?) {
         binding?.progressBar?.visibility = View.GONE
         trafficLights?.let {
-            adapter.setTrafficLights(it)
+            if (it.isEmpty()) {
+                binding?.lavEmpty?.visibility = View.VISIBLE
+            } else {
+                binding?.lavEmpty?.visibility = View.GONE
+                adapter.setTrafficLights(it)
+            }
         }
     }
 
