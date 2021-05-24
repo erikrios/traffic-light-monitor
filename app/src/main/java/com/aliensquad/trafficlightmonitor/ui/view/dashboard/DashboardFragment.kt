@@ -248,7 +248,10 @@ class DashboardFragment : Fragment() {
             ListFragment(),
             MapsFragment()
         )
-        binding?.viewPager2?.adapter = TrafficLightPagerAdapter(this, fragments)
+        binding?.viewPager2?.apply {
+            adapter = TrafficLightPagerAdapter(this@DashboardFragment, fragments)
+            isUserInputEnabled = false
+        }
         TabLayoutMediator(
             binding?.tabLayout as TabLayout,
             binding?.viewPager2 as ViewPager2
