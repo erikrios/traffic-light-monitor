@@ -13,8 +13,8 @@ object DummyData {
                 i.toLong(),
                 "Lampu Merah Pos Mlilir $i",
                 "$i Jl. Raya Ponorogo - Madiun, Tenggang, Ngrupit, Kec. Jenangan, Kabupaten Ponorogo, Jawa Timur, 63492",
-                -8.908560,
-                111.567271,
+                -8.0181039 + "0.0$i".toDouble(),
+                111.4672751 + "0.0$i".toDouble(),
                 39 + i,
                 listOf(
                     Intersection(
