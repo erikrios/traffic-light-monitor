@@ -125,6 +125,9 @@ class MapsFragment : Fragment() {
                         .withTextField(trafficLight.name)
                         .withLatLng(LatLng(trafficLight.latitude, trafficLight.longitude))
                         .withIconImage(ICON_ID)
+                        .withIconSize(0.8f)
+                        .withTextAnchor("top")
+                        .withTextSize(12f)
                         .withData(Gson().toJsonTree(trafficLight))
                 )
             }
