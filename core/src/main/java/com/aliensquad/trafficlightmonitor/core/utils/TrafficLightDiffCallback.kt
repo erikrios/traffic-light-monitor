@@ -1,4 +1,4 @@
-package com.aliensquad.utils
+package com.aliensquad.trafficlightmonitor.core.utils
 
 import androidx.recyclerview.widget.DiffUtil
 import com.aliensquad.trafficlightmonitor.core.data.model.TrafficLight

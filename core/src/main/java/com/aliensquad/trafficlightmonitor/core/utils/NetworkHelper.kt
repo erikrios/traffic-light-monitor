@@ -1,4 +1,4 @@
-package com.aliensquad.utils
+package com.aliensquad.trafficlightmonitor.core.utils
 
 import android.content.Context
 import android.content.Context.CONNECTIVITY_SERVICE

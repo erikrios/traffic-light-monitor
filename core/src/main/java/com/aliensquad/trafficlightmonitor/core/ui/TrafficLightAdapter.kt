@@ -1,4 +1,4 @@
-package com.aliensquad.ui
+package com.aliensquad.trafficlightmonitor.core.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.aliensquad.trafficlightmonitor.core.data.model.TrafficLight
 import com.aliensquad.trafficlightmonitor.core.databinding.ItemTrafficLightBinding
-import com.aliensquad.utils.TrafficLightDiffCallback
+import com.aliensquad.trafficlightmonitor.core.utils.TrafficLightDiffCallback
 
 class TrafficLightAdapter(private val onClickListener: ((TrafficLight) -> Unit)) :
     RecyclerView.Adapter<TrafficLightAdapter.ViewHolder>() {

@@ -1,4 +1,4 @@
-package com.aliensquad.ui
+package com.aliensquad.trafficlightmonitor.core.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,9 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.aliensquad.trafficlightmonitor.core.R
 import com.aliensquad.trafficlightmonitor.core.data.model.Intersection
 import com.aliensquad.trafficlightmonitor.core.databinding.ItemIntersectionBinding
-import com.aliensquad.utils.ImageConfiguration
-import com.aliensquad.utils.ImageConfiguration.getTrafficLightStatusResource
-import com.aliensquad.utils.IntersectionDiffCallback
+import com.aliensquad.trafficlightmonitor.core.utils.ImageConfiguration
+import com.aliensquad.trafficlightmonitor.core.utils.ImageConfiguration.getTrafficLightStatusResource
+import com.aliensquad.trafficlightmonitor.core.utils.IntersectionDiffCallback
 
 class IntersectionAdapter :
     RecyclerView.Adapter<IntersectionAdapter.ViewHolder>() {

@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aliensquad.trafficlightmonitor.core.data.model.TrafficLight
 import com.aliensquad.trafficlightmonitor.core.data.repository.TrafficLightRepository
-import com.aliensquad.utils.Resource
+import com.aliensquad.trafficlightmonitor.core.utils.Resource
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 

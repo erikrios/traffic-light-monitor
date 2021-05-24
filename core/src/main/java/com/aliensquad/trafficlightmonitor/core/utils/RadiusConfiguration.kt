@@ -1,4 +1,4 @@
-package com.aliensquad.utils
+package com.aliensquad.trafficlightmonitor.core.utils
 
 object RadiusConfiguration {
 
