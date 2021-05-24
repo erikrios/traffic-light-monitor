@@ -137,4 +137,10 @@ dependencies {
 
     // Play Services Location
     implementation "com.google.android.gms:play-services-location:$playServicesLocation"
+
+    // Mapbox
+    implementation "com.mapbox.mapboxsdk:mapbox-android-sdk:$mapboxAndroidSdkVersion"
+    implementation "com.mapbox.mapboxsdk:mapbox-android-plugin-annotation-v8:$mapboxAndroidPluginAnnotationV8Version"
+    implementation "com.mapbox.mapboxsdk:mapbox-android-navigation-ui:$mapboxAndroidNavigationUiVersion"
+    implementation "com.mapbox.mapboxsdk:mapbox-android-telemetry:$mapboxAndroidTelemetryVersion"
 }
