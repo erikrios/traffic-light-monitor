@@ -1,5 +1,6 @@
 package com.aliensquad.trafficlightmonitor.core.data.source.remote.network
 
+import com.aliensquad.trafficlightmonitor.core.data.model.Result
 import com.aliensquad.trafficlightmonitor.core.data.model.TrafficLight
 import retrofit2.Response
 
