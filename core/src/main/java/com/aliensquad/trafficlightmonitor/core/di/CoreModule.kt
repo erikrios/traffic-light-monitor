@@ -23,16 +23,10 @@ import java.util.concurrent.TimeUnit
 val networkModule = module {
     single {
         Interceptor { chain ->
-            var request = chain.request()
-            var originalHttpUrl = request.url
-
-            originalHttpUrl = originalHttpUrl.newBuilder()
-                .addQueryParameter("API-Key", BuildConfig.API_KEY)
+            val request = chain.request()
+                .newBuilder()
+                .addHeader("API-Key", BuildConfig.API_KEY)
                 .build()
-            request = request.newBuilder()
-                .url(originalHttpUrl)
-                .build()
-
             return@Interceptor chain.proceed(request)
         }
     }
