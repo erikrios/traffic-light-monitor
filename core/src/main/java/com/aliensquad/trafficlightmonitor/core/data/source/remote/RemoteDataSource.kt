@@ -2,10 +2,10 @@ package com.aliensquad.trafficlightmonitor.core.data.source.remote
 
 import com.aliensquad.trafficlightmonitor.core.data.model.TrafficLight
 import com.aliensquad.trafficlightmonitor.core.data.source.DataSource
-import com.aliensquad.utils.DummyData.generateTrafficLights
-import com.aliensquad.utils.DummyData.getTrafficLight
-import com.aliensquad.utils.RadiusConfiguration
-import com.aliensquad.utils.Resource
+import com.aliensquad.trafficlightmonitor.core.utils.DummyData.generateTrafficLights
+import com.aliensquad.trafficlightmonitor.core.utils.DummyData.getTrafficLight
+import com.aliensquad.trafficlightmonitor.core.utils.RadiusConfiguration
+import com.aliensquad.trafficlightmonitor.core.utils.Resource
 
 class RemoteDataSource : DataSource {
 

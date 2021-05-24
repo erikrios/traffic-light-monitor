@@ -1,4 +1,4 @@
-package com.aliensquad.ui
+package com.aliensquad.trafficlightmonitor.core.ui
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter

@@ -11,9 +11,9 @@ import com.aliensquad.trafficlightmonitor.core.data.model.TrafficLight
 import com.aliensquad.trafficlightmonitor.dashboard.DashboardFragmentDirections
 import com.aliensquad.trafficlightmonitor.dashboard.DashboardViewModel
 import com.aliensquad.trafficlightmonitor.databinding.FragmentListBinding
-import com.aliensquad.ui.TrafficLightAdapter
-import com.aliensquad.utils.Resource
-import com.aliensquad.utils.Status
+import com.aliensquad.trafficlightmonitor.core.ui.TrafficLightAdapter
+import com.aliensquad.trafficlightmonitor.core.utils.Resource
+import com.aliensquad.trafficlightmonitor.core.utils.Status
 import org.koin.android.viewmodel.ext.android.getViewModel
 
 

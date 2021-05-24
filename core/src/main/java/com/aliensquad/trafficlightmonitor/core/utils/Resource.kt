@@ -1,4 +1,4 @@
-package com.aliensquad.utils
+package com.aliensquad.trafficlightmonitor.core.utils
 
 data class Resource<out T>(val status: Status, val data: T?, val message: String?) {
 

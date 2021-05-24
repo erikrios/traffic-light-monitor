@@ -3,10 +3,10 @@ package com.aliensquad.trafficlightmonitor.core.data.repository
 import com.aliensquad.trafficlightmonitor.core.data.model.TrafficLight
 import com.aliensquad.trafficlightmonitor.core.data.source.local.LocalDataSource
 import com.aliensquad.trafficlightmonitor.core.data.source.remote.RemoteDataSource
-import com.aliensquad.utils.NetworkHelper
-import com.aliensquad.utils.RadiusConfiguration
-import com.aliensquad.utils.Resource
-import com.aliensquad.utils.Status
+import com.aliensquad.trafficlightmonitor.core.utils.NetworkHelper
+import com.aliensquad.trafficlightmonitor.core.utils.RadiusConfiguration
+import com.aliensquad.trafficlightmonitor.core.utils.Resource
+import com.aliensquad.trafficlightmonitor.core.utils.Status
 
 class TrafficLightRepositoryImpl(
     private val networkHelper: NetworkHelper,

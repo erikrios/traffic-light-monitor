@@ -17,7 +17,7 @@ import com.aliensquad.trafficlightmonitor.core.data.model.TrafficLight
 import com.aliensquad.trafficlightmonitor.dashboard.DashboardFragmentDirections
 import com.aliensquad.trafficlightmonitor.dashboard.DashboardViewModel
 import com.aliensquad.trafficlightmonitor.databinding.FragmentMapsBinding
-import com.aliensquad.utils.Resource
+import com.aliensquad.trafficlightmonitor.core.utils.Resource
 import com.google.gson.Gson
 import com.mapbox.android.core.permissions.PermissionsListener
 import com.mapbox.android.core.permissions.PermissionsManager

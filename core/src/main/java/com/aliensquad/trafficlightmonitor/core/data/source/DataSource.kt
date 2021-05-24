@@ -1,8 +1,8 @@
 package com.aliensquad.trafficlightmonitor.core.data.source
 
 import com.aliensquad.trafficlightmonitor.core.data.model.TrafficLight
-import com.aliensquad.utils.RadiusConfiguration
-import com.aliensquad.utils.Resource
+import com.aliensquad.trafficlightmonitor.core.utils.RadiusConfiguration
+import com.aliensquad.trafficlightmonitor.core.utils.Resource
 
 interface DataSource {
     suspend fun getTrafficLights(

@@ -12,10 +12,10 @@ import androidx.navigation.fragment.navArgs
 import com.aliensquad.trafficlightmonitor.R
 import com.aliensquad.trafficlightmonitor.core.data.model.TrafficLight
 import com.aliensquad.trafficlightmonitor.databinding.FragmentDetailsBinding
-import com.aliensquad.ui.IntersectionAdapter
-import com.aliensquad.utils.ImageConfiguration.getRandomTrafficLightWallpaperResource
-import com.aliensquad.utils.Resource
-import com.aliensquad.utils.Status
+import com.aliensquad.trafficlightmonitor.core.ui.IntersectionAdapter
+import com.aliensquad.trafficlightmonitor.core.utils.ImageConfiguration.getRandomTrafficLightWallpaperResource
+import com.aliensquad.trafficlightmonitor.core.utils.Resource
+import com.aliensquad.trafficlightmonitor.core.utils.Status
 import com.bumptech.glide.Glide
 import org.koin.android.viewmodel.ext.android.viewModel
 
