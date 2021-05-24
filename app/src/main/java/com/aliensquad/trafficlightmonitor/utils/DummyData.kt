@@ -49,8 +49,7 @@ object DummyData {
                         16,
                         3
                     ),
-                ),
-                0
+                )
             )
             trafficLights.add(trafficLight)
         }

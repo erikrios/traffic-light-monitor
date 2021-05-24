@@ -19,7 +19,5 @@ data class TrafficLight(
     @SerializedName("vehiclesDensityInMinutes")
     val vehiclesDensityInMinutes: Int,
     @SerializedName("intersections")
-    val intersections: List<Intersection>? = null,
-    @SerializedName("distance")
-    val distance: Int
+    val intersections: List<Intersection>? = null
 ) : Parcelable
