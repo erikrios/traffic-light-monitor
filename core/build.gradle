@@ -7,6 +7,18 @@ plugins {
 
 apply from: '../shared_dependencies.gradle'
 
+static def getBaseUrl() {
+    Properties props = new Properties()
+    props.load(new FileInputStream(new File('secrets.properties')))
+    return props['BASE_URL']
+}
+
+static def getApiKey() {
+    Properties props = new Properties()
+    props.load(new FileInputStream(new File('secrets.properties')))
+    return props['API_KEY']
+}
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
@@ -19,6 +31,11 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
+
+        manifestPlaceholders = [BASE_URL: getBaseUrl(), API_KEY: getApiKey()]
+        buildConfigField "String", "BASE_URL", "\"" + getBaseUrl() + "\""
+        buildConfigField "String", "API_KEY", "\"" + getApiKey() + "\""
+
     }
 
     buildTypes {
