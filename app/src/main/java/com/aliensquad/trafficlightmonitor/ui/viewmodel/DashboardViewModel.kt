@@ -19,6 +19,11 @@ class DashboardViewModel(private val trafficLightRepository: TrafficLightReposit
 
     val trafficLightsState: LiveData<Resource<List<TrafficLight>>> get() = _trafficLightsState
 
+    private val _latitude = MutableLiveData<Double>()
+    private val _longitude = MutableLiveData<Double>()
+    val latitude: LiveData<Double> get() = _latitude
+    val longitude: LiveData<Double> get() = _longitude
+
     fun getTrafficLights(
         radius: RadiusConfiguration.Radius,
         latitude: Double,
@@ -29,5 +34,10 @@ class DashboardViewModel(private val trafficLightRepository: TrafficLightReposit
             _trafficLightsState.value =
                 trafficLightRepository.getTrafficLights(radius, latitude, longitude)
         }
+    }
+
+    fun setLatitudeAndLongitude(latitude: Double, longitude: Double) {
+        _latitude.value = latitude
+        _longitude.value = longitude
     }
 }
