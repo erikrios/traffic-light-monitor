@@ -57,7 +57,10 @@ class ListFragment : Fragment() {
     }
 
     private fun handleLoadingState() {
-        binding?.progressBar?.visibility = View.VISIBLE
+        binding?.apply {
+            progressBar.visibility = View.VISIBLE
+            rvTrafficLights.visibility = View.INVISIBLE
+        }
     }
 
     private fun handleErrorState(message: String) {
@@ -69,9 +72,15 @@ class ListFragment : Fragment() {
         binding?.progressBar?.visibility = View.GONE
         trafficLights?.let {
             if (it.isEmpty()) {
-                binding?.lavEmpty?.visibility = View.VISIBLE
+                binding?.apply {
+                    lavEmpty.visibility = View.VISIBLE
+                    rvTrafficLights.visibility = View.INVISIBLE
+                }
             } else {
-                binding?.lavEmpty?.visibility = View.GONE
+                binding?.apply {
+                    lavEmpty.visibility = View.GONE
+                    rvTrafficLights.visibility = View.VISIBLE
+                }
                 adapter.setTrafficLights(it)
             }
         }
