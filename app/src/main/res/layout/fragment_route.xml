@@ -6,14 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".route.RouteFragment">
 
-    <TextView
+    <com.mapbox.mapboxsdk.maps.MapView
+        android:id="@+id/map_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:gravity="center"
-        android:text="@string/app_name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:mapbox_cameraTargetLat="-3"
+        app:mapbox_cameraTargetLng="111"
+        app:mapbox_cameraZoom="2.6" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
