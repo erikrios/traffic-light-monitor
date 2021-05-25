@@ -11,11 +11,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.aliensquad.trafficlightmonitor.R
 import com.aliensquad.trafficlightmonitor.core.data.model.TrafficLight
-import com.aliensquad.trafficlightmonitor.databinding.FragmentDetailsBinding
 import com.aliensquad.trafficlightmonitor.core.ui.IntersectionAdapter
 import com.aliensquad.trafficlightmonitor.core.utils.ImageConfiguration.getRandomTrafficLightWallpaperResource
 import com.aliensquad.trafficlightmonitor.core.utils.Resource
 import com.aliensquad.trafficlightmonitor.core.utils.Status
+import com.aliensquad.trafficlightmonitor.databinding.FragmentDetailsBinding
 import com.bumptech.glide.Glide
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -26,6 +26,8 @@ class DetailsFragment : Fragment() {
     private val args: DetailsFragmentArgs by navArgs()
     private val adapter = IntersectionAdapter()
     private val viewModel: DetailsViewModel by viewModel()
+    private var userLatitude: Double = -1.0
+    private var userLongitude: Double = -1.0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,6 +40,8 @@ class DetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         handleToolbar(args.trafficLight.name)
+        userLatitude = args.userLatitude.toDouble()
+        userLongitude = args.userLongitude.toDouble()
         adapter.setTrafficLights(listOf())
         handleRecyclerView()
         val trafficLightImageResource = getRandomTrafficLightWallpaperResource()
@@ -46,7 +50,6 @@ class DetailsFragment : Fragment() {
             getTrafficLight(args.trafficLight.id)
             trafficLightState.observe(viewLifecycleOwner, this@DetailsFragment::handleState)
         }
-
     }
 
     override fun onDestroyView() {
