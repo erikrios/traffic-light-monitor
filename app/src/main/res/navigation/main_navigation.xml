@@ -47,5 +47,15 @@
         android:id="@+id/routeFragment"
         android:name="com.aliensquad.trafficlightmonitor.route.RouteFragment"
         android:label="fragment_route"
-        tools:layout="@layout/fragment_route" />
+        tools:layout="@layout/fragment_route" >
+        <argument
+            android:name="trafficLight"
+            app:argType="com.aliensquad.trafficlightmonitor.core.data.model.TrafficLight" />
+        <argument
+            android:name="userLatitude"
+            app:argType="float" />
+        <argument
+            android:name="userLongitude"
+            app:argType="float" />
+    </fragment>
 </navigation>
