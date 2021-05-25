@@ -34,10 +34,18 @@
         <argument
             android:name="userLongitude"
             app:argType="float" />
+        <action
+            android:id="@+id/action_detailsFragment_to_routeFragment"
+            app:destination="@id/routeFragment" />
     </fragment>
     <fragment
         android:id="@+id/aboutFragment"
         android:name="com.aliensquad.trafficlightmonitor.about.AboutFragment"
         android:label="fragment_about"
         tools:layout="@layout/fragment_about" />
+    <fragment
+        android:id="@+id/routeFragment"
+        android:name="com.aliensquad.trafficlightmonitor.route.RouteFragment"
+        android:label="fragment_route"
+        tools:layout="@layout/fragment_route" />
 </navigation>
