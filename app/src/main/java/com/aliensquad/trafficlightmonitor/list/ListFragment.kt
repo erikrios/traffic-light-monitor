@@ -25,6 +25,8 @@ class ListFragment : Fragment() {
         requireParentFragment().getViewModel<DashboardViewModel>()
     }
     private val adapter = TrafficLightAdapter { navigateToDetailsFragment(it) }
+    private var recentLatitude = -8.0181039
+    private var recentLongitude = 111.4672751
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,10 +39,14 @@ class ListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         handleRecyclerView()
-        dashboardViewModel.trafficLightsState.observe(
-            viewLifecycleOwner,
-            this@ListFragment::handleState
-        )
+        dashboardViewModel.apply {
+            trafficLightsState.observe(
+                viewLifecycleOwner,
+                this@ListFragment::handleState
+            )
+            latitude.observe(viewLifecycleOwner) { recentLatitude = it }
+            longitude.observe(viewLifecycleOwner) { recentLongitude = it }
+        }
     }
 
     override fun onDestroyView() {
@@ -92,7 +98,11 @@ class ListFragment : Fragment() {
 
     private fun navigateToDetailsFragment(trafficLight: TrafficLight) {
         val action =
-            DashboardFragmentDirections.actionDashboardFragmentToDetailsFragment(trafficLight)
+            DashboardFragmentDirections.actionDashboardFragmentToDetailsFragment(
+                trafficLight,
+                recentLatitude.toFloat(),
+                recentLongitude.toFloat()
+            )
         findNavController().navigate(action)
     }
 }
