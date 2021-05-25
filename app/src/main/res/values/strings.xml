@@ -17,4 +17,5 @@
     <string name="enable_location_permission">Enable Location Permission</string>
     <string name="list">List</string>
     <string name="maps">Maps</string>
+    <string name="route">Route</string>
 </resources>

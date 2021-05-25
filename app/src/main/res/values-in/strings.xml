@@ -18,4 +18,5 @@
     <string name="enable_location_permission">Aktifkan Perizinan Lokasi</string>
     <string name="list">List</string>
     <string name="maps">Peta</string>
+    <string name="route">Rute</string>
 </resources>
