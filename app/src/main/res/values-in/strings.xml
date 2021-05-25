@@ -19,4 +19,5 @@
     <string name="list">List</string>
     <string name="maps">Peta</string>
     <string name="route">Rute</string>
+    <string name="route_not_found_message">Rute tidak ditemukan.</string>
 </resources>
