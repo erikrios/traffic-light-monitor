@@ -74,4 +74,5 @@ ext {
     mapboxAndroidPluginAnnotationV8Version = '0.7.0'
     mapboxAndroidNavigationUiVersion = '0.42.6'
     mapboxAndroidTelemetryVersion = '6.1.0'
+    legacySupportV4Version = '1.0.0'
 }
