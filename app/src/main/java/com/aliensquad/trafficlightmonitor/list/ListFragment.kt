@@ -8,12 +8,12 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.aliensquad.trafficlightmonitor.core.data.model.TrafficLight
-import com.aliensquad.trafficlightmonitor.dashboard.DashboardFragmentDirections
-import com.aliensquad.trafficlightmonitor.dashboard.DashboardViewModel
-import com.aliensquad.trafficlightmonitor.databinding.FragmentListBinding
 import com.aliensquad.trafficlightmonitor.core.ui.TrafficLightAdapter
 import com.aliensquad.trafficlightmonitor.core.utils.Resource
 import com.aliensquad.trafficlightmonitor.core.utils.Status
+import com.aliensquad.trafficlightmonitor.dashboard.DashboardFragmentDirections
+import com.aliensquad.trafficlightmonitor.dashboard.DashboardViewModel
+import com.aliensquad.trafficlightmonitor.databinding.FragmentListBinding
 import org.koin.android.viewmodel.ext.android.getViewModel
 
 
@@ -24,7 +24,10 @@ class ListFragment : Fragment() {
     private val dashboardViewModel by lazy {
         requireParentFragment().getViewModel<DashboardViewModel>()
     }
-    private val adapter = TrafficLightAdapter { navigateToDetailsFragment(it) }
+    private val adapter =
+        TrafficLightAdapter { navigateToDetailsFragment(it, recentLatitude, recentLongitude) }
+    private var recentLatitude = -8.0181039
+    private var recentLongitude = 111.4672751
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,10 +40,24 @@ class ListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         handleRecyclerView()
-        dashboardViewModel.trafficLightsState.observe(
-            viewLifecycleOwner,
-            this@ListFragment::handleState
-        )
+        dashboardViewModel.apply {
+            latitude.observe(viewLifecycleOwner) {
+                recentLatitude = it
+                adapter.setOnClickListener { trafficLight ->
+                    navigateToDetailsFragment(trafficLight, recentLatitude, recentLongitude)
+                }
+            }
+            longitude.observe(viewLifecycleOwner) {
+                recentLongitude = it
+                adapter.setOnClickListener { trafficLight ->
+                    navigateToDetailsFragment(trafficLight, recentLatitude, recentLongitude)
+                }
+            }
+            trafficLightsState.observe(
+                viewLifecycleOwner,
+                this@ListFragment::handleState
+            )
+        }
     }
 
     override fun onDestroyView() {
@@ -57,7 +74,10 @@ class ListFragment : Fragment() {
     }
 
     private fun handleLoadingState() {
-        binding?.progressBar?.visibility = View.VISIBLE
+        binding?.apply {
+            progressBar.visibility = View.VISIBLE
+            rvTrafficLights.visibility = View.INVISIBLE
+        }
     }
 
     private fun handleErrorState(message: String) {
@@ -68,7 +88,18 @@ class ListFragment : Fragment() {
     private fun handleSuccessState(trafficLights: List<TrafficLight>?) {
         binding?.progressBar?.visibility = View.GONE
         trafficLights?.let {
-            adapter.setTrafficLights(it)
+            if (it.isEmpty()) {
+                binding?.apply {
+                    lavEmpty.visibility = View.VISIBLE
+                    rvTrafficLights.visibility = View.INVISIBLE
+                }
+            } else {
+                binding?.apply {
+                    lavEmpty.visibility = View.GONE
+                    rvTrafficLights.visibility = View.VISIBLE
+                }
+                adapter.setTrafficLights(it)
+            }
         }
     }
 
@@ -76,9 +107,17 @@ class ListFragment : Fragment() {
         binding?.rvTrafficLights?.adapter = adapter
     }
 
-    private fun navigateToDetailsFragment(trafficLight: TrafficLight) {
+    private fun navigateToDetailsFragment(
+        trafficLight: TrafficLight,
+        latitude: Double,
+        longitude: Double
+    ) {
         val action =
-            DashboardFragmentDirections.actionDashboardFragmentToDetailsFragment(trafficLight)
+            DashboardFragmentDirections.actionDashboardFragmentToDetailsFragment(
+                trafficLight,
+                latitude.toFloat(),
+                longitude.toFloat()
+            )
         findNavController().navigate(action)
     }
 }

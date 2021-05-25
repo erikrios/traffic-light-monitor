@@ -8,7 +8,7 @@ import com.aliensquad.trafficlightmonitor.core.data.model.TrafficLight
 import com.aliensquad.trafficlightmonitor.core.databinding.ItemTrafficLightBinding
 import com.aliensquad.trafficlightmonitor.core.utils.TrafficLightDiffCallback
 
-class TrafficLightAdapter(private val onClickListener: ((TrafficLight) -> Unit)) :
+class TrafficLightAdapter(private var onClickListener: ((TrafficLight) -> Unit)) :
     RecyclerView.Adapter<TrafficLightAdapter.ViewHolder>() {
 
     private val trafficLights = mutableListOf<TrafficLight>()
@@ -19,6 +19,10 @@ class TrafficLightAdapter(private val onClickListener: ((TrafficLight) -> Unit))
         this.trafficLights.clear()
         this.trafficLights.addAll(trafficLights)
         diffResult.dispatchUpdatesTo(this)
+    }
+
+    fun setOnClickListener(onClickListener: (TrafficLight) -> Unit) {
+        this.onClickListener = onClickListener
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

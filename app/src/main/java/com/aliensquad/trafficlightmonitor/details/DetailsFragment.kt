@@ -11,11 +11,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.aliensquad.trafficlightmonitor.R
 import com.aliensquad.trafficlightmonitor.core.data.model.TrafficLight
-import com.aliensquad.trafficlightmonitor.databinding.FragmentDetailsBinding
 import com.aliensquad.trafficlightmonitor.core.ui.IntersectionAdapter
 import com.aliensquad.trafficlightmonitor.core.utils.ImageConfiguration.getRandomTrafficLightWallpaperResource
 import com.aliensquad.trafficlightmonitor.core.utils.Resource
 import com.aliensquad.trafficlightmonitor.core.utils.Status
+import com.aliensquad.trafficlightmonitor.databinding.FragmentDetailsBinding
 import com.bumptech.glide.Glide
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -26,6 +26,8 @@ class DetailsFragment : Fragment() {
     private val args: DetailsFragmentArgs by navArgs()
     private val adapter = IntersectionAdapter()
     private val viewModel: DetailsViewModel by viewModel()
+    private var userLatitude: Double = -1.0
+    private var userLongitude: Double = -1.0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,6 +40,8 @@ class DetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         handleToolbar(args.trafficLight.name)
+        userLatitude = args.userLatitude.toDouble()
+        userLongitude = args.userLongitude.toDouble()
         adapter.setTrafficLights(listOf())
         handleRecyclerView()
         val trafficLightImageResource = getRandomTrafficLightWallpaperResource()
@@ -46,7 +50,6 @@ class DetailsFragment : Fragment() {
             getTrafficLight(args.trafficLight.id)
             trafficLightState.observe(viewLifecycleOwner, this@DetailsFragment::handleState)
         }
-
     }
 
     override fun onDestroyView() {
@@ -68,6 +71,7 @@ class DetailsFragment : Fragment() {
             tvAddress.text = args.trafficLight.address
             tvVehicleDensityInMinutes.text =
                 getString(R.string.vehicles_per_minutes, 0)
+            fabRoute.isEnabled = false
         }
     }
 
@@ -91,6 +95,18 @@ class DetailsFragment : Fragment() {
             tvAddress.text = trafficLight?.address
             tvVehicleDensityInMinutes.text =
                 getString(R.string.vehicles_per_minutes, trafficLight?.vehiclesDensityInMinutes)
+            fabRoute.apply {
+                isEnabled = true
+                setOnClickListener {
+                    trafficLight?.let {
+                        navigateToRouteFragment(
+                            it,
+                            userLatitude,
+                            userLongitude
+                        )
+                    }
+                }
+            }
         }
         adapter.setTrafficLights(trafficLight?.intersections ?: listOf())
     }
@@ -123,6 +139,19 @@ class DetailsFragment : Fragment() {
 
     private fun navigateToAboutFragment() {
         val action = DetailsFragmentDirections.actionDetailsFragmentToAboutFragment()
+        findNavController().navigate(action)
+    }
+
+    private fun navigateToRouteFragment(
+        trafficLight: TrafficLight,
+        latitude: Double,
+        longitude: Double
+    ) {
+        val action = DetailsFragmentDirections.actionDetailsFragmentToRouteFragment(
+            trafficLight,
+            latitude.toFloat(),
+            longitude.toFloat()
+        )
         findNavController().navigate(action)
     }
 }

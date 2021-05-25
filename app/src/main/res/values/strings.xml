@@ -17,4 +17,6 @@
     <string name="enable_location_permission">Enable Location Permission</string>
     <string name="list">List</string>
     <string name="maps">Maps</string>
+    <string name="route">Route</string>
+    <string name="route_not_found_message">No routes found.</string>
 </resources>

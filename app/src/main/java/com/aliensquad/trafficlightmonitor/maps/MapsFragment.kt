@@ -14,10 +14,11 @@ import androidx.navigation.fragment.findNavController
 import com.aliensquad.trafficlightmonitor.BuildConfig.PUBLIC_TOKEN
 import com.aliensquad.trafficlightmonitor.R
 import com.aliensquad.trafficlightmonitor.core.data.model.TrafficLight
+import com.aliensquad.trafficlightmonitor.core.utils.Resource
+import com.aliensquad.trafficlightmonitor.core.utils.Status
 import com.aliensquad.trafficlightmonitor.dashboard.DashboardFragmentDirections
 import com.aliensquad.trafficlightmonitor.dashboard.DashboardViewModel
 import com.aliensquad.trafficlightmonitor.databinding.FragmentMapsBinding
-import com.aliensquad.trafficlightmonitor.core.utils.Resource
 import com.google.gson.Gson
 import com.mapbox.android.core.permissions.PermissionsListener
 import com.mapbox.android.core.permissions.PermissionsManager
@@ -73,10 +74,7 @@ class MapsFragment : Fragment() {
                 recentLongitude = it
             })
         }
-        binding?.mapView?.getMapAsync { mapboxMap ->
-            this.mapboxMap = mapboxMap
-            getTrafficLightsData()
-        }
+        getTrafficLightsData()
     }
 
     private fun getTrafficLightsData() {
@@ -87,7 +85,12 @@ class MapsFragment : Fragment() {
     }
 
     private fun handleState(resource: Resource<List<TrafficLight>>) {
-        showMarker(resource.data ?: listOf())
+        if (resource.status == Status.SUCCESS) {
+            binding?.mapView?.getMapAsync { mapboxMap ->
+                this.mapboxMap = mapboxMap
+                showMarker(resource.data ?: listOf())
+            }
+        }
     }
 
     override fun onStart() {
@@ -162,7 +165,7 @@ class MapsFragment : Fragment() {
 
             symbolManager?.addClickListener { symbol ->
                 val data = Gson().fromJson(symbol.data, TrafficLight::class.java)
-                navigateToDetailsFragment(data)
+                navigateToDetailsFragment(data, recentLatitude, recentLongitude)
             }
 
             showMyLocation(style)
@@ -226,9 +229,17 @@ class MapsFragment : Fragment() {
         }
     }
 
-    private fun navigateToDetailsFragment(trafficLight: TrafficLight) {
+    private fun navigateToDetailsFragment(
+        trafficLight: TrafficLight,
+        latitude: Double,
+        longitude: Double
+    ) {
         val action =
-            DashboardFragmentDirections.actionDashboardFragmentToDetailsFragment(trafficLight)
+            DashboardFragmentDirections.actionDashboardFragmentToDetailsFragment(
+                trafficLight,
+                latitude.toFloat(),
+                longitude.toFloat()
+            )
         findNavController().navigate(action)
     }
 }
