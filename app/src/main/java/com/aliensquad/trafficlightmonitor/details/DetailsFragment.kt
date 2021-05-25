@@ -71,6 +71,7 @@ class DetailsFragment : Fragment() {
             tvAddress.text = args.trafficLight.address
             tvVehicleDensityInMinutes.text =
                 getString(R.string.vehicles_per_minutes, 0)
+            fabRoute.isEnabled = false
         }
     }
 
@@ -94,6 +95,10 @@ class DetailsFragment : Fragment() {
             tvAddress.text = trafficLight?.address
             tvVehicleDensityInMinutes.text =
                 getString(R.string.vehicles_per_minutes, trafficLight?.vehiclesDensityInMinutes)
+            fabRoute.apply {
+                isEnabled = true
+                setOnClickListener { }
+            }
         }
         adapter.setTrafficLights(trafficLight?.intersections ?: listOf())
     }
@@ -126,6 +131,19 @@ class DetailsFragment : Fragment() {
 
     private fun navigateToAboutFragment() {
         val action = DetailsFragmentDirections.actionDetailsFragmentToAboutFragment()
+        findNavController().navigate(action)
+    }
+
+    private fun navigateToRouteFragment(
+        trafficLight: TrafficLight,
+        latitude: Double,
+        longitude: Double
+    ) {
+        val action = DetailsFragmentDirections.actionDetailsFragmentToRouteFragment(
+            trafficLight,
+            latitude.toFloat(),
+            longitude.toFloat()
+        )
         findNavController().navigate(action)
     }
 }
