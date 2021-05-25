@@ -36,6 +36,8 @@ import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.Style
 import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager
 import com.mapbox.mapboxsdk.plugins.annotation.SymbolOptions
+import com.mapbox.services.android.navigation.ui.v5.NavigationLauncher
+import com.mapbox.services.android.navigation.ui.v5.NavigationLauncherOptions
 import com.mapbox.services.android.navigation.ui.v5.route.NavigationMapRoute
 import com.mapbox.services.android.navigation.v5.navigation.NavigationRoute
 import retrofit2.Call
@@ -274,6 +276,7 @@ class RouteFragment : Fragment() {
 
                     currentRoute = response.body()?.routes()?.get(0)
                     navigationMapRoute.addRoute(currentRoute)
+                    showNavigation()
                 }
 
                 override fun onFailure(call: Call<DirectionsResponse>, t: Throwable) {
@@ -284,5 +287,21 @@ class RouteFragment : Fragment() {
                     ).show()
                 }
             })
+    }
+
+    private fun showNavigation() {
+        binding?.fabNavigation?.apply {
+            visibility = View.VISIBLE
+            setOnClickListener {
+                val simulateRoute = true
+
+                val options = NavigationLauncherOptions.builder()
+                    .directionsRoute(currentRoute)
+                    .shouldSimulateRoute(simulateRoute)
+                    .build()
+
+                NavigationLauncher.startNavigation(requireActivity(), options)
+            }
+        }
     }
 }
