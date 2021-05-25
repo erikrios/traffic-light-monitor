@@ -28,6 +28,12 @@
         <argument
             android:name="trafficLight"
             app:argType="com.aliensquad.trafficlightmonitor.core.data.model.TrafficLight" />
+        <argument
+            android:name="userLatitude"
+            app:argType="float" />
+        <argument
+            android:name="userLongitude"
+            app:argType="float" />
     </fragment>
     <fragment
         android:id="@+id/aboutFragment"
