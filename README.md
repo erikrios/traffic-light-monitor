@@ -25,11 +25,9 @@ Traffic Light Monitor is a creation from Alien Squad (B21-CAP0442 Bangkit Team) 
 
 ## Screenshots
 
-<img src="https://1.bp.blogspot.com/-3QYj7BlBuwE/YKzxBFwCdMI/AAAAAAAAB_E/lQO-il-N8_QrlRswdpH1oQw8BKcKEG_zgCLcBGAsYHQ/s854/Screenshoot1.png" width="20%" /> <img src="https://1.bp.blogspot.com/-mNVx_W4XOgE/YKzxDLKkIpI/AAAAAAAAB_M/VhcPDRGNEpkq98qMOO65qK9mT6h8uxDNgCLcBGAsYHQ/s854/Screenshoot2.png" width="20%" />
+<img src="https://1.bp.blogspot.com/-3QYj7BlBuwE/YKzxBFwCdMI/AAAAAAAAB_E/lQO-il-N8_QrlRswdpH1oQw8BKcKEG_zgCLcBGAsYHQ/s854/Screenshoot1.png" width="20%" /> <img src="https://1.bp.blogspot.com/-mNVx_W4XOgE/YKzxDLKkIpI/AAAAAAAAB_M/VhcPDRGNEpkq98qMOO65qK9mT6h8uxDNgCLcBGAsYHQ/s854/Screenshoot2.png" width="20%" /> <img src="https://1.bp.blogspot.com/-P4lUz4W9Hz4/YKzxDPbzhlI/AAAAAAAAB_I/7siiIuUF8q8Lm2436jhIOOCSHQLNYN9qQCLcBGAsYHQ/s854/Screenshoot3.png" width="20%" />
 
-<img src="https://1.bp.blogspot.com/-P4lUz4W9Hz4/YKzxDPbzhlI/AAAAAAAAB_I/7siiIuUF8q8Lm2436jhIOOCSHQLNYN9qQCLcBGAsYHQ/s854/Screenshoot3.png" width="20%" /> <img src="https://1.bp.blogspot.com/-UOwvOqsQ9Zg/YKzxDnecFiI/AAAAAAAAB_Q/PPpt3DQy35AwghbNRNG1EANMkW4Z64R5QCLcBGAsYHQ/s854/Screenshoot4.png" width="20%" />
-
-<img src="https://1.bp.blogspot.com/-gnry0UGymbY/YKzxEOsONsI/AAAAAAAAB_U/aPwHGk4Wr0YXnDkxBjn0EciWXbrfEFIvQCLcBGAsYHQ/s854/Screenshoot5.png" width="20%" /> <img src="https://1.bp.blogspot.com/-Bp54UlUtfgU/YKzxERRjh3I/AAAAAAAAB_Y/WdxvRfIo8iYe51xfsvBljhdiAIyV3aGdwCLcBGAsYHQ/s854/Screenshoot6.png" width="20%" />
+<img src="https://1.bp.blogspot.com/-UOwvOqsQ9Zg/YKzxDnecFiI/AAAAAAAAB_Q/PPpt3DQy35AwghbNRNG1EANMkW4Z64R5QCLcBGAsYHQ/s854/Screenshoot4.png" width="20%" /> <img src="https://1.bp.blogspot.com/-gnry0UGymbY/YKzxEOsONsI/AAAAAAAAB_U/aPwHGk4Wr0YXnDkxBjn0EciWXbrfEFIvQCLcBGAsYHQ/s854/Screenshoot5.png" width="20%" /> <img src="https://1.bp.blogspot.com/-Bp54UlUtfgU/YKzxERRjh3I/AAAAAAAAB_Y/WdxvRfIo8iYe51xfsvBljhdiAIyV3aGdwCLcBGAsYHQ/s854/Screenshoot6.png" width="20%" />
 
 ## Tech Stack
 
