@@ -24,7 +24,8 @@ class ListFragment : Fragment() {
     private val dashboardViewModel by lazy {
         requireParentFragment().getViewModel<DashboardViewModel>()
     }
-    private val adapter = TrafficLightAdapter { navigateToDetailsFragment(it) }
+    private val adapter =
+        TrafficLightAdapter { navigateToDetailsFragment(it, recentLatitude, recentLongitude) }
     private var recentLatitude = -8.0181039
     private var recentLongitude = 111.4672751
 
@@ -40,12 +41,22 @@ class ListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         handleRecyclerView()
         dashboardViewModel.apply {
+            latitude.observe(viewLifecycleOwner) {
+                recentLatitude = it
+                adapter.setOnClickListener { trafficLight ->
+                    navigateToDetailsFragment(trafficLight, recentLatitude, recentLongitude)
+                }
+            }
+            longitude.observe(viewLifecycleOwner) {
+                recentLongitude = it
+                adapter.setOnClickListener { trafficLight ->
+                    navigateToDetailsFragment(trafficLight, recentLatitude, recentLongitude)
+                }
+            }
             trafficLightsState.observe(
                 viewLifecycleOwner,
                 this@ListFragment::handleState
             )
-            latitude.observe(viewLifecycleOwner) { recentLatitude = it }
-            longitude.observe(viewLifecycleOwner) { recentLongitude = it }
         }
     }
 
@@ -96,12 +107,16 @@ class ListFragment : Fragment() {
         binding?.rvTrafficLights?.adapter = adapter
     }
 
-    private fun navigateToDetailsFragment(trafficLight: TrafficLight) {
+    private fun navigateToDetailsFragment(
+        trafficLight: TrafficLight,
+        latitude: Double,
+        longitude: Double
+    ) {
         val action =
             DashboardFragmentDirections.actionDashboardFragmentToDetailsFragment(
                 trafficLight,
-                recentLatitude.toFloat(),
-                recentLongitude.toFloat()
+                latitude.toFloat(),
+                longitude.toFloat()
             )
         findNavController().navigate(action)
     }
