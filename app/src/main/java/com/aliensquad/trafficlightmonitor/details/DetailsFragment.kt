@@ -97,7 +97,15 @@ class DetailsFragment : Fragment() {
                 getString(R.string.vehicles_per_minutes, trafficLight?.vehiclesDensityInMinutes)
             fabRoute.apply {
                 isEnabled = true
-                setOnClickListener { }
+                setOnClickListener {
+                    trafficLight?.let {
+                        navigateToRouteFragment(
+                            it,
+                            userLatitude,
+                            userLongitude
+                        )
+                    }
+                }
             }
         }
         adapter.setTrafficLights(trafficLight?.intersections ?: listOf())
