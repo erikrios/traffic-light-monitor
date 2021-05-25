@@ -165,7 +165,7 @@ class MapsFragment : Fragment() {
 
             symbolManager?.addClickListener { symbol ->
                 val data = Gson().fromJson(symbol.data, TrafficLight::class.java)
-                navigateToDetailsFragment(data)
+                navigateToDetailsFragment(data, recentLatitude, recentLongitude)
             }
 
             showMyLocation(style)
@@ -229,9 +229,17 @@ class MapsFragment : Fragment() {
         }
     }
 
-    private fun navigateToDetailsFragment(trafficLight: TrafficLight) {
+    private fun navigateToDetailsFragment(
+        trafficLight: TrafficLight,
+        latitude: Double,
+        longitude: Double
+    ) {
         val action =
-            DashboardFragmentDirections.actionDashboardFragmentToDetailsFragment(trafficLight)
+            DashboardFragmentDirections.actionDashboardFragmentToDetailsFragment(
+                trafficLight,
+                latitude.toFloat(),
+                longitude.toFloat()
+            )
         findNavController().navigate(action)
     }
 }
