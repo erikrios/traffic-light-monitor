@@ -45,8 +45,6 @@ Traffic Light Monitor is a creation from Alien Squad (B21-CAP0442 Bangkit Team) 
 - View Network Connections.
 - Location.
 
-The "Run at startup" permission is only used if Auto-Sync feature is enabled and is not utilised otherwise. The network access permissions are made use of for downloading content. The external storage permission is used to cache article images for viewing offline.
-
 ## Contributing
 
 Traffic Light Monitor is a free and open source project developed by Alien Squad (B21-CAP0442 Bangkit Team). Any contributions are welcome. Here are a few ways you can help:
