@@ -3,7 +3,7 @@
 ## About
 
 Congestion is everywhere, especially in big cities and there is still a lot of idle time on traffic with
-a time algorithm,
+a time algorithm.
 
 By creating a traffic management system based on density, it will reduce congestion and idle
 time. So, it will have an impact on the smooth flow of traffic. How does it work? By utilizing
