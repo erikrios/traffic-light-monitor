@@ -14,6 +14,12 @@ Traffic Light Monitor is an application that used to monitor traffic lights.
 
 Traffic Light Monitor is a creation from Alien Squad (B21-CAP0442 Bangkit Team) released under the GNU GENERAL PUBLIC LICENSE v3.
 
+<a href="https://play.google.com/store/apps/details?id=com.aliensquad.trafficlightmonitor">
+    <img alt="Get it on Google Play"
+        height="80"
+        src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" />
+</a>
+
 ## Features
 
 - Nearby traffic lights by radius (list mode).
