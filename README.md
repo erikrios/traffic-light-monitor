@@ -3,7 +3,7 @@
 ## About
 
 Congestion is everywhere, especially in big cities and there is still a lot of idle time on traffic with
-a time algorithm,
+a time algorithm.
 
 By creating a traffic management system based on density, it will reduce congestion and idle
 time. So, it will have an impact on the smooth flow of traffic. How does it work? By utilizing
@@ -13,6 +13,12 @@ users.
 Traffic Light Monitor is an application that used to monitor traffic lights.
 
 Traffic Light Monitor is a creation from Alien Squad (B21-CAP0442 Bangkit Team) released under the GNU GENERAL PUBLIC LICENSE v3.
+
+<a href="https://play.google.com/store/apps/details?id=com.aliensquad.trafficlightmonitor">
+    <img alt="Get it on Google Play"
+        height="80"
+        src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" />
+</a>
 
 ## Features
 
